@@ -22,11 +22,8 @@ export default class HttpExceptionHandler extends ExceptionHandler {
    * to return the HTML contents to send as a response.
    */
   protected statusPages: Record<StatusPageRange, StatusPageRenderer> = {
-    '404': (error, { view }) => {
-      return view.render('pages/errors/not_found', { error })
-    },
-    '500..599': (error, { view }) => {
-      return view.render('pages/errors/server_error', { error })
+    '404': async (_error, { view }) => {
+      return view.render('error/not_found')
     },
   }
 
@@ -38,7 +35,7 @@ export default class HttpExceptionHandler extends ExceptionHandler {
     if (error instanceof errors.E_ROUTE_NOT_FOUND) {
       const undefinedPage = await this.statusPages['404'](error, ctx)
 
-      return ctx.response.send(undefinedPage)
+      return ctx.response.status(error.status).send(undefinedPage)
     }
     return super.handle(error, ctx)
   }

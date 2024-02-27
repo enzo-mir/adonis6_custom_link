@@ -1,0 +1,87 @@
+.main {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+}
+.content {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 1fr;
+  gap: 3em;
+  width: clamp(300px, 60svw, 700px);
+  height: clamp(fit-content, 50svh, 800px);
+  background-color: #fff;
+  background-size: 10px 10px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 20px 0px rgba(0, 0, 0, 0.3);
+  z-index: 1;
+  padding: 1em;
+}
+.content > a {
+  width: fit-content;
+  justify-self: center;
+  color: var(--accent-clr);
+}
+
+.content > h1 {
+  font-size: clamp(1.5rem, -1.5rem + 8vw, 3rem);
+}
+.content > form {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-self: center;
+  width: clamp(250px, 75%, 500px);
+  gap: 2em;
+}
+.content > form > label {
+  position: relative;
+  width: 100%;
+}
+.content > form > label > * {
+  font-size: clamp(0.75rem, -1.5rem + 6vw, 1.2rem);
+}
+.content > form > button {
+  transition: all 0.25s ease-out;
+  padding: 0.5em 1em;
+  background-color: transparent;
+  font-weight: bolder;
+}
+.content > form > button:focus-visible {
+  background-color: hsla(0, 0%, 0%, 0.15);
+}
+.content > form > button:hover {
+  cursor: pointer;
+}
+.content > form > label > p {
+  position: absolute;
+  bottom: 0.5em;
+  left: 0.5em;
+  color: hsla(0, 0%, 0%, 0.7);
+  transition: all 0.25s ease-out;
+  z-index: -1;
+}
+.content > form > label > input {
+  width: 100%;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.75);
+  background-color: transparent;
+  padding: 0.5em;
+}
+.content > form > label:has(input:focus) > p,
+.content > form > label:has(input:valid) > p {
+  bottom: 100%;
+  color: black;
+  font-size: smaller;
+}
+
+@media screen and (max-width: 600px) {
+  .content {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    height: initial;
+  }
+}

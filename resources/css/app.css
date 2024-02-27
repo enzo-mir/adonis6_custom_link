@@ -1,14 +1,47 @@
-* {
+@font-face {
+  font-family: 'Atkinson-Hyperlegible';
+  src: url('../assets/fonts/AtkinsonHyperlegible-Regular.ttf') format('woff');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Atkinson-Hyperlegible';
+  src: url('../assets/fonts/AtkinsonHyperlegible-Bold.ttf') format('woff');
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-html,
-body {
-  height: 100%;
-  width: 100%;
+:root {
+  --main-bg: #e3e8fc;
+  --primary-clr: #8095ef;
+  --secondary-clr: #931262;
+  --secondary-clr-a50: hsla(323, 78%, 32%, 0.5);
+  --accent-clr: hsl(217, 81%, 50%);
 }
 
-h1.h1error {
-  color: red;
+html,
+body,
+#app {
+  height: 100%;
+  width: 100%;
+  font-family: 'Atkinson-Hyperlegible';
+}
+body {
+  background: -webkit-radial-gradient(
+      0% 100%,
+      ellipse cover,
+      rgba(104, 128, 138, 0.4) 10%,
+      rgba(138, 114, 76, 0) 40%
+    ),
+    linear-gradient(to bottom, rgba(57, 173, 219, 0.25) 0%, rgba(42, 60, 87, 0.4) 100%),
+    linear-gradient(135deg, #670d10 0%, #092756 100%);
 }

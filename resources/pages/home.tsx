@@ -1,18 +1,25 @@
 import { Head } from '@inertiajs/react'
+import React, { Suspense, useState } from 'react'
+const Login = React.lazy(() => import('../components/login'))
+const Signin = React.lazy(() => import('../components/signin'))
+import logger_style from '../css/logger.module.css'
 
-export default function Home(props: { version: number }) {
+export default function Home() {
+  const [showLogger, setShowLogger] = useState<'login' | 'signin'>('login')
   return (
     <>
       <Head title="Homepage" />
 
-      <div className="container">
-        <div className="title">AdonisJS {props.version} x Inertia x React</div>
-
-        <span>
-          Learn more about AdonisJS and Inertia.js by visiting the{' '}
-          <a href="https://docs.adonisjs.com/inertia">AdonisJS documentation</a>.
-        </span>
-      </div>
+      <main className={logger_style.main}>
+        <section className={logger_style.content}>
+          <Suspense fallback={<p>Loading</p>}>
+            {showLogger === 'login' ? <Login /> : <Signin />}
+          </Suspense>
+          <a href="#" onClick={() => setShowLogger(showLogger === 'login' ? 'signin' : 'login')}>
+            {showLogger === 'signin' ? 'Have already an account ?' : "Doesn't have an account ?"}
+          </a>
+        </section>
+      </main>
     </>
   )
 }

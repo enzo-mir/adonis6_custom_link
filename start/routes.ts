@@ -7,7 +7,7 @@
 |
 */
 
+const PagesController = () => import('#controllers/pages_controller')
 import router from '@adonisjs/core/services/router'
 
-router.on('/').render('pages/home')
-router.get('/inertia', ({ inertia }) => inertia.render('home', { version: 6 }))
+router.get('/', [PagesController, 'home'])
