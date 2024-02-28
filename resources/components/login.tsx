@@ -1,5 +1,5 @@
 import { useForm } from '@inertiajs/react'
-import React, { type ChangeEvent, type FormEvent } from 'react'
+import { type ChangeEvent, type FormEvent } from 'react'
 
 export default function Login() {
   const { data, setData, post, processing } = useForm({
@@ -23,7 +23,14 @@ export default function Login() {
       <form onSubmit={handleSubmit}>
         <label htmlFor="username">
           <p>Username</p>
-          <input type="text" name="username" id="username" autoComplete="username" required />
+          <input
+            type="text"
+            name="username"
+            id="username"
+            autoComplete="username"
+            required
+            placeholder=""
+          />
         </label>
         <label htmlFor="password">
           <p>Password</p>
@@ -33,6 +40,7 @@ export default function Login() {
             id="password"
             autoComplete="current-password"
             required
+            placeholder=""
           />
         </label>
         <button disabled={processing} type="submit">

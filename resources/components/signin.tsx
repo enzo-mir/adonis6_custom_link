@@ -31,11 +31,19 @@ export default function Signin() {
             autoComplete="username"
             onChange={handleChangeValue}
             required
+            placeholder=""
           />
         </label>
         <label htmlFor="username">
           <p>email</p>
-          <input type="email" name="email" id="email" onChange={handleChangeValue} required />
+          <input
+            type="email"
+            name="email"
+            id="email"
+            onChange={handleChangeValue}
+            required
+            placeholder=""
+          />
         </label>
         <label htmlFor="password">
           <p>Password</p>
@@ -46,6 +54,7 @@ export default function Signin() {
             autoComplete="current-password"
             onChange={handleChangeValue}
             required
+            placeholder=""
           />
         </label>
         <button disabled={processing} type="submit">

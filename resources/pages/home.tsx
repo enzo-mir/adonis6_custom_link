@@ -1,8 +1,9 @@
 import { Head } from '@inertiajs/react'
-import React, { Suspense, useState } from 'react'
-const Login = React.lazy(() => import('../components/login'))
-const Signin = React.lazy(() => import('../components/signin'))
+import { useState } from 'react'
+
 import logger_style from '../css/logger.module.css'
+import Login from '../components/login'
+import Signin from '../components/signin'
 
 export default function Home() {
   const [showLogger, setShowLogger] = useState<'login' | 'signin'>('login')
@@ -12,9 +13,7 @@ export default function Home() {
 
       <main className={logger_style.main}>
         <section className={logger_style.content}>
-          <Suspense fallback={<p>Loading</p>}>
-            {showLogger === 'login' ? <Login /> : <Signin />}
-          </Suspense>
+          {showLogger === 'login' ? <Login /> : <Signin />}
           <a href="#" onClick={() => setShowLogger(showLogger === 'login' ? 'signin' : 'login')}>
             {showLogger === 'signin' ? 'Have already an account ?' : "Doesn't have an account ?"}
           </a>

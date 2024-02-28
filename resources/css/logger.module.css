@@ -31,7 +31,7 @@
 .content > form {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
   justify-self: center;
   width: clamp(250px, 75%, 500px);
   gap: 2em;
@@ -71,8 +71,11 @@
   background-color: transparent;
   padding: 0.5em;
 }
+.content > form > label > input:invalid:not(:placeholder-shown) {
+  border-bottom: 1px solid rgba(255, 0, 0, 0.75);
+}
 .content > form > label:has(input:focus) > p,
-.content > form > label:has(input:valid) > p {
+.content > form > label:has(input:not(:placeholder-shown)) > p {
   bottom: 100%;
   color: black;
   font-size: smaller;
