@@ -1,2 +1,2 @@
 # Database Model conception
-![Modeler Db](./readme_assets//db_modeler.png)
+![Modeler D](./readme_assets//db_modeler.png)
