@@ -1,4 +1,4 @@
-import env from '../resources/start/env.js'
+import env from '../start/env.js'
 import app from '@adonisjs/core/services/app'
 import { Secret } from '@adonisjs/core/helpers'
 import { defineConfig } from '@adonisjs/core/http'

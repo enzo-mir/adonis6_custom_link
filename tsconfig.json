@@ -4,6 +4,7 @@
   "compilerOptions": {
     "rootDir": "./",
     "outDir": "./build",
+    "baseUrl": "./",
     "paths": {
       "#controllers/*": ["./app/controllers/*.js"],
       "#exceptions/*": ["./app/exceptions/*.js"],
@@ -19,8 +20,9 @@
       "#abilities/*": ["./app/abilities/*.js"],
       "#database/*": ["./database/*.js"],
       "#tests/*": ["./tests/*.js"],
-      "#start/*": ["resources/start/*.js"],
-      "#config/*": ["./config/*.js"]
+      "#start/*": ["./start/*.js"],
+      "#config/*": ["./config/*.js"],
+      "#schemas/*": ["./app/schemas/*.js"]
     }
   }
 }

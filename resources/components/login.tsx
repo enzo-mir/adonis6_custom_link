@@ -15,6 +15,7 @@ export default function Login() {
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault()
+    post('/auth/login', { data })
   }
 
   return (
@@ -30,6 +31,7 @@ export default function Login() {
             autoComplete="username"
             required
             placeholder=""
+            onChange={handleChangeValue}
           />
         </label>
         <label htmlFor="password">
@@ -41,6 +43,7 @@ export default function Login() {
             autoComplete="current-password"
             required
             placeholder=""
+            onChange={handleChangeValue}
           />
         </label>
         <button disabled={processing} type="submit">

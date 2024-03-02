@@ -15,6 +15,7 @@ import server from '@adonisjs/core/services/server'
  * The error handler is used to convert an exception
  * to a HTTP response.
  */
+server.errorHandler(() => import('#exceptions/handler'))
 
 /**
  * The server middleware stack runs middleware on all the HTTP
@@ -46,4 +47,3 @@ export const middleware = router.named({
   guest: () => import('#middleware/guest_middleware'),
   auth: () => import('#middleware/auth_middleware'),
 })
-server.errorHandler(() => import('#exceptions/handler'))

@@ -29,20 +29,21 @@
     "#database/*": "./database/*.js",
     "#tests/*": "./tests/*.js",
     "#start/*": "./start/*.js",
-    "#config/*": "./config/*.js"
+    "#config/*": "./config/*.js",
+    "#schemas/*": "./app/schemas/*.js"
   },
   "devDependencies": {
-    "@adonisjs/assembler": "^7.2.2",
-    "@adonisjs/eslint-config": "^1.2.1",
-    "@adonisjs/prettier-config": "^1.2.1",
-    "@adonisjs/tsconfig": "^1.2.1",
+    "@adonisjs/assembler": "^7.2.3",
+    "@adonisjs/eslint-config": "^1.2.2",
+    "@adonisjs/prettier-config": "^1.2.2",
+    "@adonisjs/tsconfig": "^1.2.2",
     "@japa/assert": "^2.1.0",
     "@japa/plugin-adonisjs": "^3.0.0",
     "@japa/runner": "^3.1.1",
     "@swc/core": "^1.4.2",
     "@types/luxon": "^3.4.2",
-    "@types/node": "^20.11.20",
-    "@types/react": "^18.2.60",
+    "@types/node": "^20.11.24",
+    "@types/react": "^18.2.61",
     "@types/react-dom": "^18.2.19",
     "@vitejs/plugin-react": "^4.2.1",
     "eslint": "^8.57.0",
@@ -63,13 +64,16 @@
     "@adonisjs/vite": "^2.0.2",
     "@inertiajs/react": "^1.0.15",
     "@vinejs/vine": "^1.7.1",
+    "argon2": "^0.40.1",
+    "bcrypt": "^5.1.1",
     "better-sqlite3": "^9.4.3",
     "edge.js": "^6.0.1",
     "luxon": "^3.4.4",
     "mysql2": "^3.9.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "reflect-metadata": "^0.2.1"
+    "reflect-metadata": "^0.2.1",
+    "zod": "^3.22.4"
   },
   "eslintConfig": {
     "extends": "@adonisjs/eslint-config/app"

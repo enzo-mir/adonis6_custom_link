@@ -16,6 +16,9 @@ export default function Signin() {
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault()
+    post('/auth/account/create', {
+      data,
+    })
   }
 
   return (
