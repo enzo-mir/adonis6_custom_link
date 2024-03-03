@@ -8,8 +8,8 @@ import encryption from '@adonisjs/core/services/encryption'
 export default class AuthentificationsController {
   private async defaultCustomPage(userfind: User) {
     return await CustomPage.create({
-      header_content: encryption.encrypt({ title: 'Title', description: 'description' }),
       user_id: userfind.id,
+      header_content: encryption.encrypt({ title: 'Title', description: 'description' }),
       names: encryption.encrypt(['Link_1', 'Link_2']),
       links: encryption.encrypt(['https://www.google.com/', 'https://www.youtube.com/']),
       style: encryption.encrypt({

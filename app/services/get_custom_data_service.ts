@@ -26,4 +26,24 @@ export default class GetCustomDatas {
 
     return
   }
+
+  async getLinks() {
+    if (this.ctx.auth.user) {
+      const content = await CustomPage.query()
+        .select('*')
+        .where('user_id', this.ctx.auth.user!.id)
+        .first()
+      if (content) {
+        const linksEncrypted = content.links
+        const namesEncrypted = content.names
+
+        const decrypteLinks = encryption.decrypt(linksEncrypted)
+        const decrypteNames = encryption.decrypt(namesEncrypted)
+        return { urls: decrypteLinks, names: decrypteNames }
+      }
+      return
+    }
+
+    return
+  }
 }

@@ -5,11 +5,13 @@ export type PropsType = {
     email: string
     username: string
   }
-  names?: string[]
-  links?: string[]
   header_content?: {
     title: string
     description: string
+  }
+  links?: {
+    urls: string[]
+    names: string[]
   }
   images?: Array<string>
   style?: Theme

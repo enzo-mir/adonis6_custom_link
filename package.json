@@ -69,6 +69,7 @@
     "bcrypt": "^5.1.1",
     "better-sqlite3": "^9.4.3",
     "edge.js": "^6.0.1",
+    "framer-motion": "^11.0.8",
     "lodash": "^4.17.21",
     "luxon": "^3.4.4",
     "mysql2": "^3.9.2",

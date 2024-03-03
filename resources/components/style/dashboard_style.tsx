@@ -4,7 +4,7 @@ const DashboardSection = styled.section`
   position: relative;
   display: grid;
   place-items: center;
-  transition: all 0.5s ease-out;
+  transition: all 0.3s ease-out;
   background-color: ${(provider) => provider.theme.body};
   box-shadow: 0 20px 20px 0px rgba(0, 0, 0, 0.3);
   width: clamp(300px, 40svw, 500px);
@@ -21,7 +21,6 @@ const DashboardSection = styled.section`
     height: 100%;
     max-height: 40svh;
     padding: 1em;
-    background-color: ${(provider) => provider.theme.body};
   }
   h1,
   h2 {
@@ -29,10 +28,11 @@ const DashboardSection = styled.section`
     text-align: center;
   }
   h1 {
-    font-size: 2.5em;
+    font-size: clamp(1.5em, 2.5vw, 2.5em);
   }
   h2 {
     font-weight: 400;
+    font-size: clamp(1.25em, 2vw, 2em);
   }
   ul {
     display: flex;
@@ -55,6 +55,7 @@ const DashboardSection = styled.section`
     text-decoration: none;
     width: 100%;
     padding: 0.5em;
+    font-size: clamp(0.8em, 1.8vw, 1.2em);
   }
 
   & button {
@@ -70,6 +71,7 @@ const DashboardSection = styled.section`
     backdrop-filter: blur(10px);
     color: red;
     background-color: #fff;
+    font-weight: bold;
 
     &:hover,
     &:focus-visible {
