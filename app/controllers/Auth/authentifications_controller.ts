@@ -6,6 +6,23 @@ import CustomPage from '#models/custom_page'
 import encryption from '@adonisjs/core/services/encryption'
 
 export default class AuthentificationsController {
+  private async defaultCustomPage(userfind: User) {
+    return await CustomPage.create({
+      header_content: encryption.encrypt({ title: 'Title', description: 'description' }),
+      user_id: userfind.id,
+      names: encryption.encrypt(['Link_1', 'Link_2']),
+      links: encryption.encrypt(['https://www.google.com/', 'https://www.youtube.com/']),
+      style: encryption.encrypt({
+        body: '#F9F3F4',
+        text: '#ffffff',
+        bg_links: '#C03F48',
+        border_radius: '10px',
+        header_color: '#F4414D',
+      }),
+      images: null,
+    })
+  }
+
   async createAccount(ctx: HttpContext) {
     try {
       const createUser = createUserSchema.parse(ctx.request.all())
@@ -13,24 +30,12 @@ export default class AuthentificationsController {
 
       const userfind = await User.findBy('email', createUser.email)
       if (userfind) {
-        await CustomPage.create({
-          header_content: encryption.encrypt({ title: 'Title', description: 'description' }),
-          user_id: userfind.id,
-          names: encryption.encrypt(['Link_1', 'Link_2']),
-          links: encryption.encrypt(['https://www.google.com/', 'https://www.youtube.com/']),
-          style: encryption.encrypt({
-            body: '#F9F3F4',
-            text: '#FFF',
-            bg_links: '#C03F48',
-            border_radius: '10px',
-            header_color: '#F4414D',
-          }),
-          images: null,
-        })
+        const customProps = await this.defaultCustomPage(userfind)
+        if (customProps) {
+          await ctx.auth.use('web').login(userfind)
 
-        await ctx.auth.use('web').login(userfind)
-
-        return ctx.response.redirect('/dashboard')
+          return ctx.response.redirect().back()
+        }
       } else {
         throw new Error('Something went wrong !')
       }

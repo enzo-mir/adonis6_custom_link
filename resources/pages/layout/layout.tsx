@@ -1,13 +1,17 @@
 import { usePage } from '@inertiajs/react'
 import MessageModal from '../../components/modal/message_modal'
 import { useEffect, useState } from 'react'
+import { themeStore } from '../../stores/theme.store'
+import type { PropsType } from '../../types/props.type'
 
 const Layout = ({ children }) => {
-  const { props } = usePage()
+  const { props }: { props: PropsType } = usePage()
   const [message, setMessage] = useState<string>('')
+  const setTheme = themeStore((state) => state.setTheme)
   useEffect(() => {
-    setMessage(props.errors as unknown as string)
-    const timeOut = (props.errors as unknown as string)?.length * 60
+    setTheme(props.style)
+    setMessage(props.errors)
+    const timeOut = props.errors?.length * 60
 
     setTimeout(
       () => {

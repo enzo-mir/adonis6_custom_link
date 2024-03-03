@@ -1,33 +1,17 @@
-import { useEffect, useRef, type ElementRef } from 'react'
+import { useRef, type ElementRef, useEffect } from 'react'
 import { ThemeProvider } from 'styled-components'
 import { themeStore, type Theme } from '../stores/theme.store'
 import { DashboardMain, DashboardSection } from '../components/style/dashboard_style'
 import SideBar from '../components/side_bar'
+import Layout from './layout/layout'
+import type { PropsType } from '../types/props.type'
 
-type DashboardProps = {
-  user: {
-    email: string
-    username: string
-  }
-  names: string[]
-  links: string[]
-  header_content: {
-    title: string
-    description: string
-  }
-  images: Array<string>
-  style: Theme
-}
-
-const dashboard = (props: DashboardProps) => {
-  const [theme, setTheme] = themeStore((state) => [state.theme, state.setTheme])
+const dashboard = (props: PropsType) => {
+  const theme = themeStore((state) => state.theme)
   const sectionRef = useRef<ElementRef<'section'>>(null)
-  useEffect(() => {
-    setTheme(props.style)
-  }, [])
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme || props.style}>
       <DashboardMain>
         <DashboardSection ref={sectionRef}>
           <article>
@@ -52,5 +36,7 @@ const dashboard = (props: DashboardProps) => {
     </ThemeProvider>
   )
 }
+
+dashboard.layout = (page: HTMLElement) => <Layout children={page} />
 
 export default dashboard
