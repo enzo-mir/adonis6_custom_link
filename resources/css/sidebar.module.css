@@ -2,9 +2,96 @@
   position: absolute;
   right: 0;
   top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 3em;
   height: 100%;
   background-color: #fff;
-  width: 30svw;
-  min-width: fit-content;
-  max-width: 500px;
+  width: 0svw;
+  transition-property: width;
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  max-width: 400px;
+  padding: 1em 0em;
+  overflow-x: hidden;
+  min-width: 0px;
+
+  & > * {
+    width: fit-content;
+  }
+
+  &[data-open='true'] {
+    width: 30svw;
+    min-width: 300px;
+    padding: 1em 2em;
+  }
+
+  & > button {
+    align-self: start;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    background-color: transparent;
+    padding: 0.5em;
+    &:hover,
+    &:focus-visible {
+      cursor: pointer;
+      filter: brightness(75%);
+      opacity: 1;
+    }
+  }
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 2.5em;
+  width: 100%;
+  min-width: max-content;
+
+  & > button:last-child {
+    width: fit-content;
+    padding: 0.5em;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    color: white;
+    background: #000;
+  }
+}
+
+.form > label {
+  display: grid;
+  justify-items: start;
+  align-items: center;
+  width: 100%;
+  font-size: 1.5em;
+  gap: 0.25em;
+  min-width: 100%;
+  & > input {
+    width: 100%;
+  }
+  & > p {
+    font-size: 0.75em;
+  }
+}
+
+.openButton {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  top: 20px;
+  right: 20px;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  background-color: #fff;
+  padding: 0.5em;
+  &:hover,
+  &:focus-visible {
+    cursor: pointer;
+    filter: brightness(75%);
+    opacity: 1;
+  }
 }

@@ -4,7 +4,7 @@ const DashboardSection = styled.section`
   position: relative;
   display: grid;
   place-items: center;
-  transition: all 1s ease-out;
+  transition: all 0.5s ease-out;
   background-color: ${(provider) => provider.theme.body};
   box-shadow: 0 20px 20px 0px rgba(0, 0, 0, 0.3);
   width: clamp(300px, 40svw, 500px);
@@ -62,12 +62,14 @@ const DashboardSection = styled.section`
     right: 10px;
     bottom: 10px;
     background-color: ${(provider) => provider.theme.body};
-    opacity: 0.5;
+    opacity: 0.75;
     padding: 0.5em;
     border: none;
     border-radius: 5px;
-    transition: filter 0.5s ease-out;
+    transition: filter 0.25s ease-out;
     backdrop-filter: blur(10px);
+    color: red;
+    background-color: #fff;
 
     &:hover,
     &:focus-visible {
