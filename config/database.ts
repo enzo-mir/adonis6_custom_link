@@ -3,6 +3,7 @@ import { defineConfig } from '@adonisjs/lucid'
 
 const dbConfig = defineConfig({
   connection: 'mysql',
+
   connections: {
     mysql: {
       client: 'mysql2',

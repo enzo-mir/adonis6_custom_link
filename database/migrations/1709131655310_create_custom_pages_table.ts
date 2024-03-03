@@ -7,11 +7,11 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
       table.uuid('user_id').references('id').inTable('users').onDelete('CASCADE')
-      table.json('header_content').notNullable()
-      table.json('names').notNullable()
-      table.json('links').notNullable()
-      table.json('images').notNullable()
-      table.json('style').notNullable()
+      table.string('header_content').notNullable()
+      table.string('names').notNullable()
+      table.string('links').notNullable()
+      table.string('images').nullable()
+      table.string('style').notNullable()
     })
   }
 

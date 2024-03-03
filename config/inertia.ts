@@ -1,3 +1,5 @@
+import GetCustomDatas from '#services/get_custom_data_service'
+import getUserDatas from '#services/user_data_service'
 import { defineConfig } from '@adonisjs/inertia'
 
 export default defineConfig({
@@ -11,5 +13,7 @@ export default defineConfig({
    */
   sharedData: {
     errors: (ctx) => ctx.session.flashMessages.get('errors'),
+    user: async (ctx) => await getUserDatas(ctx),
+    header_content: async (ctx) => new GetCustomDatas(ctx).header_content,
   },
 })

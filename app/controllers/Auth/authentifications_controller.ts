@@ -2,16 +2,24 @@ import type { HttpContext } from '@adonisjs/core/http'
 import { createUserSchema } from '#schemas/user_schemas'
 import { ZodError } from 'zod'
 import User from '#models/user'
-import hash from '@adonisjs/core/services/hash'
+import CustomPage from '#models/custom_page'
+import encryption from '@adonisjs/core/services/encryption'
 
 export default class AuthentificationsController {
   async createAccount(ctx: HttpContext) {
     try {
       const createUser = createUserSchema.parse(ctx.request.all())
-      const hashedPassword = await hash.make(createUser.password.trim())
-
       await User.create(createUser)
+
       const userfind = await User.findBy('email', createUser.email)
+      await CustomPage.create({
+        header_content: encryption.encrypt({ title: 'Title', description: 'description' }),
+        user_id: userfind!.id,
+        names: encryption.encrypt(['Link_1', 'Link_2']),
+        links: encryption.encrypt(['https://www.google.com/', 'https://www.youtube.com/']),
+        images: null,
+      })
+
       await ctx.auth.use('web').login(userfind!)
 
       return ctx.response.redirect('/dashboard')
@@ -40,7 +48,6 @@ export default class AuthentificationsController {
   async login(ctx: HttpContext) {
     try {
       const { username, password } = ctx.request.all()
-      await User.query().select('password').where('username', username).first()
       const user = await User.verifyCredentials(username, password)
       ctx.auth.use('web').login(user)
       return ctx.response.redirect('/dashboard')

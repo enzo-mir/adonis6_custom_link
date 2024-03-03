@@ -16,10 +16,13 @@ export default class CustomPage extends BaseModel {
   declare header_content: string
 
   @column()
-  declare names: string[]
+  declare names: string
 
   @column()
-  declare images: string[]
+  declare links: string
+
+  @column()
+  declare images: string | null
 
   @column()
   declare style: string
