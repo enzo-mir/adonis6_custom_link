@@ -1,0 +1,10 @@
+.aside {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  background-color: #fff;
+  width: 30svw;
+  min-width: fit-content;
+  max-width: 500px;
+}

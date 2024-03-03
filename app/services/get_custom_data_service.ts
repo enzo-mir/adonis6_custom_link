@@ -1,17 +1,29 @@
 import CustomPage from '#models/custom_page'
 import { HttpContext } from '@adonisjs/core/http'
+import encryption from '@adonisjs/core/services/encryption'
 
 export default class GetCustomDatas {
   ctx: HttpContext
-  constructor(ctx: HttpContext) {
+  column: string
+  constructor(ctx: HttpContext, column: string) {
     this.ctx = ctx
+    this.column = column
   }
-  async header_content() {
-    const headerContent = await CustomPage.query()
-      .select('header_content')
-      .where('id', this.ctx.auth.user!.id)
-      .first()
+  async getContent() {
+    if (this.ctx.auth.user) {
+      const content = await CustomPage.query()
+        .select(`${this.column}`)
+        .where('user_id', this.ctx.auth.user!.id)
+        .first()
+      if (content) {
+        const keyToRetrieve = (content as any)[this.column]
 
-    return headerContent?.header_content
+        const decryptedData = encryption.decrypt(keyToRetrieve)
+        return decryptedData
+      }
+      return
+    }
+
+    return
   }
 }

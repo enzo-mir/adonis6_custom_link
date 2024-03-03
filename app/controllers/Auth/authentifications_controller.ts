@@ -12,20 +12,29 @@ export default class AuthentificationsController {
       await User.create(createUser)
 
       const userfind = await User.findBy('email', createUser.email)
-      await CustomPage.create({
-        header_content: encryption.encrypt({ title: 'Title', description: 'description' }),
-        user_id: userfind!.id,
-        names: encryption.encrypt(['Link_1', 'Link_2']),
-        links: encryption.encrypt(['https://www.google.com/', 'https://www.youtube.com/']),
-        images: null,
-      })
+      if (userfind) {
+        await CustomPage.create({
+          header_content: encryption.encrypt({ title: 'Title', description: 'description' }),
+          user_id: userfind.id,
+          names: encryption.encrypt(['Link_1', 'Link_2']),
+          links: encryption.encrypt(['https://www.google.com/', 'https://www.youtube.com/']),
+          style: encryption.encrypt({
+            body: '#F9F3F4',
+            text: '#FFF',
+            bg_links: '#C03F48',
+            border_radius: '10px',
+            header_color: '#F4414D',
+          }),
+          images: null,
+        })
 
-      await ctx.auth.use('web').login(userfind!)
+        await ctx.auth.use('web').login(userfind)
 
-      return ctx.response.redirect('/dashboard')
+        return ctx.response.redirect('/dashboard')
+      } else {
+        throw new Error('Something went wrong !')
+      }
     } catch (error) {
-      console.log(error)
-
       if (error instanceof ZodError) {
         ctx.session.flash({
           errors: error.issues[0].message,
@@ -41,6 +50,10 @@ export default class AuthentificationsController {
             errors: 'The username is allready used !',
           })
         }
+      } else {
+        ctx.session.flash({
+          errors: error.message,
+        })
       }
       return ctx.response.redirect().back()
     }

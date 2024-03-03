@@ -73,7 +73,9 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "reflect-metadata": "^0.2.1",
-    "zod": "^3.22.4"
+    "styled-components": "^6.1.8",
+    "zod": "^3.22.4",
+    "zustand": "^4.5.2"
   },
   "eslintConfig": {
     "extends": "@adonisjs/eslint-config/app"

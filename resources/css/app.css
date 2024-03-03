@@ -1,13 +1,13 @@
 @font-face {
-  font-family: 'Atkinson-Hyperlegible';
-  src: url('../assets/fonts/AtkinsonHyperlegible-Regular.ttf') format('woff');
+  font-family: 'WorkSans';
+  src: url('../assets/fonts/WorkSans-Regular.ttf') format('woff');
   font-style: normal;
   font-weight: 400;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Atkinson-Hyperlegible';
-  src: url('../assets/fonts/AtkinsonHyperlegible-Bold.ttf') format('woff');
+  font-family: 'WorkSans';
+  src: url('../assets/fonts/WorkSans-Bold.ttf') format('woff');
   font-style: normal;
   font-weight: 700;
   font-display: swap;
@@ -33,7 +33,11 @@ body,
 #app {
   height: 100%;
   width: 100%;
-  font-family: 'Atkinson-Hyperlegible';
+  font-family: 'WorkSans';
+}
+
+a {
+  font-family: 'WorkSans';
 }
 body {
   position: relative;
