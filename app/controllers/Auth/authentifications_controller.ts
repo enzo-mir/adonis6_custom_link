@@ -82,7 +82,7 @@ export default class AuthentificationsController {
       const { username, password } = ctx.request.all()
       const user = await User.verifyCredentials(username, password)
       ctx.auth.use('web').login(user)
-      return ctx.response.redirect('/dashboard')
+      return ctx.response.redirect(`/dashboard/${user.id}`)
     } catch (error) {
       ctx.session.flash({
         errors: 'Credentials does not matches !',

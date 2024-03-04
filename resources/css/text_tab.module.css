@@ -3,14 +3,38 @@
   flex-direction: column;
   gap: 2em;
   overflow: hidden;
+  min-height: 300px;
+  height: fit-content;
+  padding-block: 1em;
 }
 .form_Link {
   position: relative;
   display: grid;
-  width: 80%;
+  width: 100%;
   gap: 2em;
   & h2 {
     padding-inline: 0.25em;
+  }
+}
+.header_link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & button {
+    background: transparent;
+    border: none;
+
+    & > svg {
+      transition: rotate 0.3s ease-out;
+      rotate: 45deg;
+    }
+    &:hover {
+      cursor: pointer;
+      & > svg {
+        rotate: 135deg;
+      }
+    }
   }
 }
 .links_container {
@@ -30,7 +54,6 @@
 
     & > p {
       font-weight: 500;
-      font-size: larger;
     }
 
     & > input {
@@ -45,8 +68,9 @@
 
   & > svg:first-child {
     grid-area: 1 / 1 / 2 / 2;
-    margin-top: 7.5px;
-    &:hover {
+    margin-top: 5px;
+    &:hover,
+    &:focus {
       cursor: grab;
     }
   }
@@ -65,8 +89,12 @@
 .header_container {
   position: relative;
   display: grid;
-  width: 80%;
+  width: 100%;
   gap: 2em;
+  padding-inline-end: 2em;
+  & p {
+    font-weight: 500;
+  }
   & input {
     width: 100%;
     outline: none;
@@ -74,5 +102,10 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0.75);
     background-color: transparent;
     padding: 0.5em;
+    font-weight: 300;
   }
+}
+.cta_container {
+  display: flex;
+  gap: 1em;
 }

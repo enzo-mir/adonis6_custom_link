@@ -9,12 +9,15 @@ export default async function getUserDatas(ctx: HttpContext) {
       .where('username', ctx.auth.user!.username)
       .where('email', ctx.auth.user!.email)
       .first()
-    const dataToShare = {
-      email: userDatas?.email,
-      username: userDatas?.username,
+    if (userDatas) {
+      const dataToShare = {
+        id: userDatas.id,
+        email: userDatas.email,
+        username: userDatas.username,
+      }
+      return dataToShare
     }
-
-    return dataToShare
+    return
   } catch (error) {
     return
   }

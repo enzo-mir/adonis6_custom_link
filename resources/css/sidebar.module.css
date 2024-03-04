@@ -10,12 +10,24 @@
   height: 100%;
   background-color: #fff;
   width: 0svw;
-  transition-property: width;
   transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   max-width: 400px;
   padding: 1em 0em;
-  overflow: hidden;
   min-width: 0px;
+  max-height: 100svh;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 12px;
+    background-color: rgb(240, 240, 240);
+    border-radius: 25px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #c2c2c2;
+    border-radius: 25px;
+    border: 0px none #ffffff;
+  }
 
   & > * {
     width: fit-content;
@@ -24,19 +36,22 @@
   &[data-open='true'] {
     width: 30svw;
     min-width: 300px;
-    padding: 1em 2em;
+    padding: 1em clamp(0.5em, 5svw, 2em);
   }
 
   & > nav {
     display: grid;
     place-items: center;
-    grid-template-columns: 0.3fr auto auto;
+    grid-template-columns: auto 1fr;
+    gap: 10px;
     width: 100%;
     ul {
       display: flex;
-      gap: 2em;
-      font-size: 1.5em;
+      justify-content: space-between;
+      align-items: center;
+      font-size: clamp(1.2em, 1.5vw, 1.5em);
       list-style-type: none;
+      width: 100%;
 
       li {
         position: relative;
@@ -68,7 +83,6 @@
       border-radius: 5px;
       border: none;
       background-color: transparent;
-      padding: 0.5em;
       transition: rotate 0.25s ease-out;
       &:hover,
       &:focus-visible {
@@ -87,22 +101,6 @@
   gap: 2em;
   width: 100%;
   min-width: max-content;
-
-  & > button:last-child {
-    width: fit-content;
-    padding: 0.5em;
-    border: none;
-    border-radius: 5px;
-    font-weight: bold;
-    color: white;
-    background: #000;
-    &:hover,
-    &:focus-visible {
-      cursor: pointer;
-      filter: brightness(75%);
-      opacity: 1;
-    }
-  }
 }
 
 .form > label {
@@ -139,4 +137,9 @@
     filter: brightness(75%);
     opacity: 1;
   }
+}
+
+.cta_container {
+  display: flex;
+  gap: 1em;
 }

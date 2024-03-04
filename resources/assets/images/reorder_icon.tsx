@@ -1,12 +1,14 @@
 import { DragControls } from 'framer-motion'
+import { forwardRef } from 'react'
 
 interface Props {
   dragControls: DragControls
 }
 
-export function ReorderIcon({ dragControls }: Props) {
+export const ReorderIcon = forwardRef<any, Props>(({ dragControls }, ref) => {
   return (
     <svg
+      ref={ref}
       xmlns="http://www.w3.org/2000/svg"
       width="20"
       height="10"
@@ -14,7 +16,7 @@ export function ReorderIcon({ dragControls }: Props) {
       fill="none"
       onPointerDown={(event) => dragControls.start(event)}
     >
-      <g clip-path="url(#clip0_1_2)">
+      <g clipPath="url(#clip0_1_2)">
         <rect width="24" height="1" fill="black" />
         <rect y="4.5" width="24" height="1" fill="black" />
         <rect y="9" width="24" height="1" fill="black" />
@@ -26,4 +28,4 @@ export function ReorderIcon({ dragControls }: Props) {
       </defs>
     </svg>
   )
-}
+})

@@ -1,14 +1,19 @@
-import { customProps } from '../../stores/custom_props.store'
+import { customProps, type PropsType } from '../../stores/custom_props.store'
 import style from '../../css/text_tab.module.css'
-import { useState, type ChangeEvent, type ElementRef, useEffect } from 'react'
+import resetBtn from '../../css/cta_form.module.css'
+import { useState, type ChangeEvent, type ElementRef, useEffect, useRef } from 'react'
 import { Reorder } from 'framer-motion'
 import { LinkItems } from './link_items'
 import type { LinkType } from '../../types/props.type'
+import { usePage } from '@inertiajs/react'
+import { DeletIcon } from '../../assets/images/delete_icon'
 
 export const TextTab = () => {
+  const { props: pageProps }: { props: PropsType } = usePage()
   const [props, setProps] = customProps((state) => [state.props, state.setProps])
   const [links, setLinks] = useState<Array<{ id: number; name: string; link: string }>>(props.links)
-
+  const headerFormRef = useRef<ElementRef<'form'>>(null)
+  const linkFormRef = useRef<ElementRef<'form'>>(null)
   useEffect(() => {
     setProps({
       ...props,
@@ -24,9 +29,32 @@ export const TextTab = () => {
       },
     })
   }
+
+  function handleAddLink() {
+    const linksArray: LinkType = props.links
+    function getHigherId() {
+      const ids = props.links.map((link) => link.id)
+      return Math.max(...ids)
+    }
+    linksArray.push({
+      id: getHigherId() + 1,
+      name: 'google link',
+      link: 'https://www.google.com/',
+    })
+
+    setProps({
+      ...props,
+      links: linksArray,
+    })
+  }
   return (
     <>
-      <form action="" className={style.header_container}>
+      <form
+        action=""
+        onSubmit={(e) => e.preventDefault()}
+        ref={headerFormRef}
+        className={style.header_container}
+      >
         <h2>Header</h2>
         <label htmlFor="title">
           <p>Title</p>
@@ -48,14 +76,64 @@ export const TextTab = () => {
             required
           />
         </label>
+        <div className={style.cta_container}>
+          <button
+            className={resetBtn.save_button}
+            type="button"
+            onClick={(e) => {
+              ;(e.currentTarget.parentNode as HTMLFormElement).reset()
+              setProps({ ...props, links: pageProps.links })
+            }}
+          >
+            Save
+          </button>
+          <button
+            className={resetBtn.reset_button}
+            type="button"
+            onClick={(e) => {
+              ;(e.currentTarget.parentNode as HTMLFormElement).reset()
+              setProps({ ...props, header_content: pageProps.header_content })
+            }}
+          >
+            Reset
+          </button>
+        </div>
       </form>
-      <form action="" className={style.form_Link}>
-        <h2>Links</h2>
+      <form action="" ref={linkFormRef} className={style.form_Link}>
+        <div className={style.header_link}>
+          <h2>Links</h2>
+          <button onClick={handleAddLink} type="button">
+            <DeletIcon onPointerDown={() => {}} />
+          </button>
+        </div>
+
         <Reorder.Group className={style.wrapper_links} axis="y" onReorder={setLinks} values={links}>
-          {links.map((item) => {
+          {props.links.map((item) => {
             return <LinkItems key={item.id} item={item} />
           })}
         </Reorder.Group>
+        <div className={style.cta_container}>
+          <button
+            className={resetBtn.save_button}
+            type="button"
+            onClick={(e) => {
+              linkFormRef.current.reset()
+              setProps({ ...props, links: pageProps.links })
+            }}
+          >
+            Save
+          </button>
+          <button
+            className={resetBtn.reset_button}
+            type="button"
+            onMouseDown={(e) => {
+              linkFormRef.current.reset()
+              setProps({ ...props, links: pageProps.links })
+            }}
+          >
+            Reset
+          </button>
+        </div>
       </form>
     </>
   )

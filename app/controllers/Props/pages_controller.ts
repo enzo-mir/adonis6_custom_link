@@ -4,13 +4,17 @@ export default class PagesController {
   async home(ctx: HttpContext) {
     await ctx.auth.check()
 
-    if (ctx.auth.use('web').user) {
-      return ctx.response.redirect('/dashboard')
+    if (ctx.auth.user) {
+      return ctx.response.redirect(`/dashboard/${ctx.auth.user.id}`)
     } else {
       return ctx.inertia.render('home')
     }
   }
   async dashboard(ctx: HttpContext) {
-    return ctx.inertia.render('dashboard')
+    const { userid } = ctx.params
+
+    return userid === ctx.auth.user!.id
+      ? ctx.inertia.render('dashboard')
+      : ctx.response.redirect().back()
   }
 }

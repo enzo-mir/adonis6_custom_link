@@ -1,0 +1,31 @@
+.reset_button {
+  width: fit-content;
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  color: white;
+  background: salmon;
+  &:hover,
+  &:focus-visible {
+    cursor: pointer;
+    filter: brightness(75%);
+    opacity: 1;
+  }
+}
+
+.save_button {
+  width: fit-content;
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  color: white;
+  background: hsl(135, 31%, 50%);
+  &:hover,
+  &:focus-visible {
+    cursor: pointer;
+    filter: brightness(75%);
+    opacity: 1;
+  }
+}

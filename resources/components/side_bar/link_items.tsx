@@ -1,20 +1,41 @@
 import { Reorder, useDragControls, useMotionValue } from 'framer-motion'
 import { ReorderIcon } from '../../assets/images/reorder_icon.js'
-import { customProps } from '../../stores/custom_props.store.js'
+import { customProps, type PropsType } from '../../stores/custom_props.store.js'
 import style from '../../css/text_tab.module.css'
 import { useRaisedShadow } from '../../hooks/user_raised_shadow.js'
 import type { LinkType } from '../../types/props.type.js'
 import { DeletIcon } from '../../assets/images/delete_icon.js'
-import type { ChangeEvent } from 'react'
+import { useRef, type ChangeEvent, type PointerEvent, useEffect } from 'react'
 
 export const LinkItems = ({ item }: { item: LinkType[0] }) => {
   const [props, setProps] = customProps((state) => [state.props, state.setProps])
   const y = useMotionValue(0)
   const dragControls = useDragControls()
   const boxShadow = useRaisedShadow(y)
+  const iRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const touchHandler: React.TouchEventHandler<HTMLElement> = (e) => e.preventDefault()
+
+    const iTag = iRef.current
+
+    if (iTag) {
+      //@ts-ignore
+      iTag.addEventListener('touchstart', touchHandler, { passive: false })
+
+      return () => {
+        //@ts-ignore
+        iTag.removeEventListener('touchstart', touchHandler, {
+          passive: false,
+        })
+      }
+    }
+  }, [iRef])
 
   function handlechange(e: ChangeEvent<HTMLInputElement>, id: number) {
-    function p(prevProps) {
+    let updateState: (prevProps: PropsType) => PropsType = function (
+      prevProps: PropsType
+    ): PropsType {
       const updatedLinks = prevProps.links.map((link) => {
         if (link.id === id) {
           return {
@@ -28,23 +49,44 @@ export const LinkItems = ({ item }: { item: LinkType[0] }) => {
 
       return {
         ...prevProps,
-        links: updatedLinks,
+        links: updatedLinks as LinkType,
       }
     }
+    setProps(updateState(props))
+  }
 
-    setProps(p(props))
+  function handleDeleteLink(id: number) {
+    const linksArray: LinkType = [...props.links]
+    const filteredArray = linksArray.filter((link) => (link.id === id ? false : true)) as LinkType
+    setProps({
+      ...props,
+      links: filteredArray,
+    })
   }
   return (
     <Reorder.Item
       value={item}
       className={style.links_container}
       id={item.name}
-      style={{ boxShadow, y }}
       dragListener={false}
+      style={{ boxShadow, y }}
       dragControls={dragControls}
+      initial={{
+        opacity: 0,
+        height: '0%',
+      }}
+      animate={{
+        opacity: 1,
+        height: '100%',
+        transition: { duration: 0.3 },
+      }}
+      exit={{
+        opacity: 0,
+        height: '0%',
+      }}
     >
-      <ReorderIcon dragControls={dragControls} />
-      <DeletIcon />
+      <ReorderIcon ref={iRef} dragControls={dragControls} />
+      <DeletIcon onPointerDown={() => handleDeleteLink(item.id)} />
       <label htmlFor="name">
         <p>Name</p>
         <input

@@ -9,16 +9,18 @@ const DashboardSection = styled.section`
   box-shadow: 0 20px 20px 0px rgba(0, 0, 0, 0.3);
   width: clamp(300px, 40svw, 500px);
   height: 40svh;
+  min-height: 300px;
 
   & article {
     position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5em;
+    display: grid;
+    justify-items: center;
+    align-items: start;
+    grid-template-rows: auto auto minmax(50px, 1fr) auto;
+    gap: 1em;
     width: clamp(300px, 40svw, 500px);
-    height: 100%;
+    min-height: 300px;
+    height: max-content;
     max-height: 40svh;
     padding: 1em;
   }
@@ -37,10 +39,13 @@ const DashboardSection = styled.section`
   ul {
     display: flex;
     flex-direction: column;
-    gap: 0.5em;
+    gap: 1em;
     width: 100%;
     max-width: 500px;
-    padding-block: 2em;
+    padding-block: 2em 0;
+    max-height: 100%;
+    overflow-y: auto;
+    transition: all 0.25s ease-out;
   }
   li {
     list-style-type: none;
@@ -59,10 +64,8 @@ const DashboardSection = styled.section`
   }
 
   & button {
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
     background-color: ${(provider) => provider.theme.body};
+    justify-self: end;
     opacity: 0.75;
     padding: 0.5em;
     border: none;
@@ -84,6 +87,14 @@ const DashboardSection = styled.section`
   &.preview {
     width: 100%;
     height: 100svh;
+
+    & > article {
+      max-height: fit-content;
+    }
+
+    & ul {
+      max-height: 60svh;
+    }
   }
 `
 

@@ -12,9 +12,10 @@ const AuthentificationsController = () => import('#controllers/Auth/authentifica
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
 import { HttpContext } from '@adonisjs/core/http'
+const UpdateStylesController = () => import('#controllers/User/update_styles_controller')
 
 router.get('/', [PagesController, 'home'])
-router.get('/dashboard', [PagesController, 'dashboard']).use(middleware.auth())
+router.get('/dashboard/:userid', [PagesController, 'dashboard']).use(middleware.auth())
 router.get('/logout', async (ctx: HttpContext) => {
   ctx.auth.use('web').logout()
   return ctx.response.redirect('/')
@@ -26,3 +27,9 @@ router
     router.post('/login', [AuthentificationsController, 'login'])
   })
   .prefix('auth')
+
+router
+  .group(() => {
+    router.put('/:userid/style', [UpdateStylesController, 'update'])
+  })
+  .prefix('users')

@@ -1,6 +1,10 @@
-export function DeletIcon() {
+export function DeletIcon({ onPointerDown }: { onPointerDown(): void }) {
   return (
     <svg
+      onPointerDown={(e) => {
+        e.stopPropagation()
+        onPointerDown()
+      }}
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       fill="#000000"

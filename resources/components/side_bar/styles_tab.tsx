@@ -1,25 +1,42 @@
-import type { ChangeEvent } from 'react'
+import { useRef, type ChangeEvent, type FormEvent, type ElementRef } from 'react'
 import { useDebounce } from '../../hooks/use_debounce'
-import { themeStore } from '../../stores/theme.store'
+import { themeStore, type Theme } from '../../stores/theme.store'
 import type { PropsType } from '../../types/props.type'
-import { usePage } from '@inertiajs/react'
+import { useForm, usePage } from '@inertiajs/react'
 import style from '../../css/sidebar.module.css'
+import resetBtn from '../../css/cta_form.module.css'
+import { userDatas } from '../../stores/user_datas.store'
 
 export const StyleTab = () => {
   const [theme, setTheme] = themeStore((state) => [state.theme, state.setTheme])
   const { props }: { props: PropsType } = usePage()
+  const styleFormRef = useRef<ElementRef<'form'>>(null)
+  const user = userDatas((state) => state.user)
   const propsStyle = props.style
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const value = e.target.value
-    setTheme({
-      ...theme,
+    setData({
+      ...data,
       [e.target.name]: !Number.isNaN(Number.parseInt(value)) ? `${value}px` : value,
     })
+    setTheme(data)
+  }
+  const { put, data, setData } = useForm<Theme>({
+    body: props.style.body,
+    text: props.style.text,
+    bg_links: props.style.bg_links,
+    border_radius: props.style.border_radius,
+    header_color: props.style.header_color,
+  })
+  function handleSubmit(e: FormEvent) {
+    e.preventDefault
+
+    put(`/users/'${user.id}'/style`, { data })
   }
 
   const debouncedHandleChange = useDebounce(handleChange, 1)
   return (
-    <form action="" className={style.form}>
+    <form onSubmit={handleSubmit} ref={styleFormRef} className={style.form}>
       <label htmlFor="body">
         Background color
         <input
@@ -83,15 +100,22 @@ export const StyleTab = () => {
             Number.parseInt(propsStyle.border_radius.split('px', 1)[0])}
         </p>
       </label>
-      <button
-        type="button"
-        onClick={(e) => {
-          ;(e.currentTarget.parentNode as HTMLFormElement).reset()
-          setTheme(props.style)
-        }}
-      >
-        Reset
-      </button>
+      <div className={style.cta_container}>
+        <button className={resetBtn.save_button} type="submit">
+          Save
+        </button>
+        <button
+          className={resetBtn.reset_button}
+          type="button"
+          onMouseDown={(e) => {
+            styleFormRef.current.reset()
+            setTheme(props.style)
+            setData(props.style)
+          }}
+        >
+          Reset
+        </button>
+      </div>
     </form>
   )
 }

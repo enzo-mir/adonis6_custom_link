@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { ThemeProvider } from 'styled-components'
 import { themeStore } from '../stores/theme.store'
 import { DashboardMain, DashboardSection } from '../components/style/dashboard_style'
@@ -6,12 +6,13 @@ import SideBar from '../components/side_bar/side_bar'
 import Layout from './layout/layout'
 import type { PropsType } from '../types/props.type'
 import { customProps } from '../stores/custom_props.store'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, Reorder, motion } from 'framer-motion'
 
 const dashboard = (props: PropsType) => {
   const theme = themeStore((state) => state.theme)
   const [openPreview, setOpenPreview] = useState<boolean>(false)
   const [propsStore, setPropsStore] = customProps((state) => [state.props, state.setProps])
+
   return (
     <ThemeProvider theme={theme || props.style}>
       <DashboardMain>
@@ -25,9 +26,9 @@ const dashboard = (props: PropsType) => {
                   return (
                     <motion.li
                       key={id}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -20 }}
+                      initial={{ opacity: 0, height: '0%' }}
+                      animate={{ opacity: 1, height: '100%', transition: { duration: 0.3 } }}
+                      exit={{ opacity: 0, height: '0%' }}
                     >
                       <a href={link.link} target="_blank">
                         {link.name}

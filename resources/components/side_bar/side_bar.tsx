@@ -4,10 +4,9 @@ import burgerIcon from '../../assets/images/burger-menu.svg'
 import closeIcon from '../../assets/images/close-button.svg'
 import { StyleTab } from './styles_tab'
 import { TextTab } from './texts_tab'
-
 const SideBar = () => {
   const [openSideBar, setOpenSideBar] = useState<boolean>(true)
-  const [currentTab, setCurrentTab] = useState<'style' | 'text'>('style')
+  const [currentTab, setCurrentTab] = useState<'style' | 'text' | 'images'>('style')
 
   return (
     <>
@@ -34,10 +33,16 @@ const SideBar = () => {
             >
               Texts
             </li>
+            <li
+              aria-active={currentTab === 'images' ? 'true' : 'false'}
+              onClick={() => setCurrentTab('images')}
+            >
+              Images
+            </li>
           </ul>
         </nav>
 
-        {currentTab === 'style' ? <StyleTab /> : <TextTab />}
+        {currentTab === 'style' ? <StyleTab /> : currentTab === 'text' ? <TextTab /> : null}
       </aside>
     </>
   )

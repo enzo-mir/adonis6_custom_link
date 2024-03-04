@@ -12,6 +12,7 @@ export type PropsType = {
   user?: {
     email: string
     username: string
+    id: string
   }
   header_content?: {
     title: string
