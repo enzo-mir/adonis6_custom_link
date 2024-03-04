@@ -1,10 +1,12 @@
 import { Reorder, useDragControls, useMotionValue } from 'framer-motion'
 import { ReorderIcon } from '../../assets/images/reorder_icon.js'
 import { customProps } from '../../stores/custom_props.store.js'
-import style from '../../css/sidebar.module.css'
+import style from '../../css/text_tab.module.css'
 import { useRaisedShadow } from '../../hooks/user_raised_shadow.js'
+import type { LinkType } from '../../types/props.type.js'
+import { DeletIcon } from '../../assets/images/delete_icon.js'
 
-export const LinkItems = ({ item }) => {
+export const LinkItems = ({ item }: { item: LinkType[0] }) => {
   const [props, setProps] = customProps((state) => [state.props, state.setProps])
   const y = useMotionValue(0)
   const dragControls = useDragControls()
@@ -18,8 +20,16 @@ export const LinkItems = ({ item }) => {
       dragListener={false}
       dragControls={dragControls}
     >
-      <span>{item.name}</span>
+      <label htmlFor="name">
+        <p>Name</p>
+        <input type="text" defaultValue={item.name} required />
+      </label>
+      <label htmlFor="link">
+        <p>Link</p>
+        <input type="url" defaultValue={item.link} required />
+      </label>
       <ReorderIcon dragControls={dragControls} />
+      <DeletIcon />
     </Reorder.Item>
   )
 }

@@ -4,14 +4,13 @@ import { ZodError } from 'zod'
 import User from '#models/user'
 import CustomPage from '#models/custom_page'
 import encryption from '@adonisjs/core/services/encryption'
+import db from '@adonisjs/lucid/services/db'
 
 export default class AuthentificationsController {
   private async defaultCustomPage(userfind: User) {
-    return await CustomPage.create({
+    const customPage = await CustomPage.create({
       user_id: userfind.id,
       header_content: encryption.encrypt({ title: 'Title', description: 'description' }),
-      names: encryption.encrypt(['Link_1', 'Link_2']),
-      links: encryption.encrypt(['https://www.google.com/', 'https://www.youtube.com/']),
       style: encryption.encrypt({
         body: '#F9F3F4',
         text: '#ffffff',
@@ -21,6 +20,21 @@ export default class AuthentificationsController {
       }),
       images: null,
     })
+
+    await db.table('links').multiInsert([
+      {
+        user_id: userfind.id,
+        name: 'Google',
+        link: 'https://www.google.com/',
+      },
+      {
+        user_id: userfind.id,
+        name: 'Youtube',
+        link: 'https://www.youtube.com/',
+      },
+    ])
+
+    return customPage
   }
 
   async createAccount(ctx: HttpContext) {

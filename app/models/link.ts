@@ -2,7 +2,7 @@ import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
 import User from './user.js'
 import * as relations from '@adonisjs/lucid/types/relations'
 
-export default class CustomPage extends BaseModel {
+export default class Link extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
@@ -13,11 +13,8 @@ export default class CustomPage extends BaseModel {
   declare user: relations.BelongsTo<typeof User>
 
   @column()
-  declare header_content: string
+  declare link: string
 
   @column()
-  declare images: string | null
-
-  @column()
-  declare style: string
+  declare name: string
 }

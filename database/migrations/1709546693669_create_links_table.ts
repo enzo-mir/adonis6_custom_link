@@ -1,15 +1,14 @@
 import { BaseSchema } from '@adonisjs/lucid/schema'
 
 export default class extends BaseSchema {
-  protected tableName = 'custom_pages'
+  protected tableName = 'links'
 
   async up() {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id').primary()
+      table.increments('id')
       table.uuid('user_id').references('id').inTable('users').onDelete('CASCADE')
-      table.string('header_content').notNullable()
-      table.string('images').nullable()
-      table.string('style').notNullable()
+      table.string('link')
+      table.string('name')
     })
   }
 

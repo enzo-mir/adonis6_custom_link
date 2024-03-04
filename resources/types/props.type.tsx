@@ -1,5 +1,13 @@
 import type { Theme } from '../stores/theme.store'
 
+export type LinkType = [
+  {
+    id: number
+    link: string
+    name: string
+  },
+]
+
 export type PropsType = {
   user?: {
     email: string
@@ -9,10 +17,7 @@ export type PropsType = {
     title: string
     description: string
   }
-  links?: {
-    urls: string[]
-    names: string[]
-  }
+  links?: LinkType
   images?: Array<string>
   style?: Theme
   errors?: string

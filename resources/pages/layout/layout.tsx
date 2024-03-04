@@ -11,15 +11,13 @@ const Layout = ({ children }) => {
   const setProps = customProps((state) => state.setProps)
   const setTheme = themeStore((state) => state.setTheme)
   useEffect(() => {
-    setTheme(props.style)
-    setProps({
-      links: {
-        urls: props.links.urls,
-        names: props.links.names,
-      },
-      header_content: props.header_content,
-      images: props.images,
-    })
+    props.style && setTheme(props.style)
+    props.links &&
+      setProps({
+        links: props.links,
+        header_content: props.header_content,
+        images: props.images,
+      })
     setMessage(props.errors)
     const timeOut = props.errors?.length * 60
 
