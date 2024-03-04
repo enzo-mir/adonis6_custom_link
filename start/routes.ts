@@ -12,6 +12,7 @@ const AuthentificationsController = () => import('#controllers/Auth/authentifica
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
 import { HttpContext } from '@adonisjs/core/http'
+const UpdateHeadersController = () => import('#controllers/User/update_headers_controller')
 const UpdateStylesController = () => import('#controllers/User/update_styles_controller')
 
 router.get('/', [PagesController, 'home'])
@@ -32,6 +33,9 @@ router
   .group(() => {
     router
       .post('/:userid/style', [UpdateStylesController, 'update'])
+      .middleware([middleware.auth()])
+    router
+      .post('/:userid/header', [UpdateHeadersController, 'update'])
       .middleware([middleware.auth()])
   })
   .prefix('users')

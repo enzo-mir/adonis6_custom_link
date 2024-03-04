@@ -1,12 +1,20 @@
 import { customProps, type PropsType } from '../../stores/custom_props.store'
 import style from '../../css/text_tab.module.css'
 import resetBtn from '../../css/cta_form.module.css'
-import { useState, type ChangeEvent, type ElementRef, useEffect, useRef } from 'react'
+import {
+  useState,
+  type ChangeEvent,
+  type ElementRef,
+  useEffect,
+  useRef,
+  type FormEvent,
+} from 'react'
 import { Reorder } from 'framer-motion'
 import { LinkItems } from './link_items'
-import type { LinkType } from '../../types/props.type'
-import { usePage } from '@inertiajs/react'
+import type { HeaderProps, LinkType } from '../../types/props.type'
+import { useForm, usePage } from '@inertiajs/react'
 import { DeletIcon } from '../../assets/images/delete_icon'
+import { userDatas } from '../../stores/user_datas.store'
 
 export const TextTab = () => {
   const { props: pageProps }: { props: PropsType } = usePage()
@@ -14,6 +22,12 @@ export const TextTab = () => {
   const [links, setLinks] = useState<Array<{ id: number; name: string; link: string }>>(props.links)
   const headerFormRef = useRef<ElementRef<'form'>>(null)
   const linkFormRef = useRef<ElementRef<'form'>>(null)
+  const user = userDatas((state) => state.user)
+  const { post, data, setData } = useForm<HeaderProps>({
+    title: props.header_content.title,
+    description: props.header_content.description,
+  })
+
   useEffect(() => {
     setProps({
       ...props,
@@ -21,12 +35,13 @@ export const TextTab = () => {
     })
   }, [links])
   function handleChangeHeader(e: ChangeEvent<ElementRef<'input'>>) {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+    })
     setProps({
       ...props,
-      header_content: {
-        ...props.header_content,
-        [e.target.name]: e.target.value,
-      },
+      header_content: data,
     })
   }
 
@@ -47,14 +62,14 @@ export const TextTab = () => {
       links: linksArray,
     })
   }
+  function handleSubmitHeader(e: FormEvent) {
+    e.preventDefault()
+    post(`/users/${user.id}/header`, { data })
+  }
+
   return (
     <>
-      <form
-        action=""
-        onSubmit={(e) => e.preventDefault()}
-        ref={headerFormRef}
-        className={style.header_container}
-      >
+      <form onSubmit={handleSubmitHeader} ref={headerFormRef} className={style.header_container}>
         <h2>Header</h2>
         <label htmlFor="title">
           <p>Title</p>
@@ -73,25 +88,18 @@ export const TextTab = () => {
             name="description"
             defaultValue={props.header_content.description}
             onChange={handleChangeHeader}
-            required
           />
         </label>
         <div className={style.cta_container}>
-          <button
-            className={resetBtn.save_button}
-            type="button"
-            onClick={(e) => {
-              ;(e.currentTarget.parentNode as HTMLFormElement).reset()
-              setProps({ ...props, links: pageProps.links })
-            }}
-          >
+          <button className={resetBtn.save_button} type="submit">
             Save
           </button>
           <button
             className={resetBtn.reset_button}
             type="button"
             onClick={(e) => {
-              ;(e.currentTarget.parentNode as HTMLFormElement).reset()
+              headerFormRef.current.reset()
+              setData(pageProps.header_content)
               setProps({ ...props, header_content: pageProps.header_content })
             }}
           >

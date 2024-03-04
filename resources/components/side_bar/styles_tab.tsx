@@ -33,9 +33,6 @@ export const StyleTab = () => {
 
     post(`/users/${user.id}/style`, {
       data,
-      onSuccess: (pr) => {
-        console.log(pr)
-      },
     })
   }
 
