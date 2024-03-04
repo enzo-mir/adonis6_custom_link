@@ -22,4 +22,5 @@ export type PropsType = {
   images?: Array<string>
   style?: Theme
   errors?: string
+  success?: string
 }

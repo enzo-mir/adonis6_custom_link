@@ -15,7 +15,7 @@ import { HttpContext } from '@adonisjs/core/http'
 const UpdateStylesController = () => import('#controllers/User/update_styles_controller')
 
 router.get('/', [PagesController, 'home'])
-router.get('/dashboard/:userid', [PagesController, 'dashboard']).use(middleware.auth())
+router.get('/dashboard/:userid', [PagesController, 'dashboard']).middleware([middleware.auth()])
 router.get('/logout', async (ctx: HttpContext) => {
   ctx.auth.use('web').logout()
   return ctx.response.redirect('/')
@@ -30,6 +30,8 @@ router
 
 router
   .group(() => {
-    router.put('/:userid/style', [UpdateStylesController, 'update'])
+    router
+      .post('/:userid/style', [UpdateStylesController, 'update'])
+      .middleware([middleware.auth()])
   })
   .prefix('users')

@@ -21,7 +21,7 @@ export const StyleTab = () => {
     })
     setTheme(data)
   }
-  const { put, data, setData } = useForm<Theme>({
+  const { post, data, setData, processing } = useForm<Theme>({
     body: props.style.body,
     text: props.style.text,
     bg_links: props.style.bg_links,
@@ -29,9 +29,14 @@ export const StyleTab = () => {
     header_color: props.style.header_color,
   })
   function handleSubmit(e: FormEvent) {
-    e.preventDefault
+    e.preventDefault()
 
-    put(`/users/'${user.id}'/style`, { data })
+    post(`/users/${user.id}/style`, {
+      data,
+      onSuccess: (pr) => {
+        console.log(pr)
+      },
+    })
   }
 
   const debouncedHandleChange = useDebounce(handleChange, 1)
@@ -101,7 +106,7 @@ export const StyleTab = () => {
         </p>
       </label>
       <div className={style.cta_container}>
-        <button className={resetBtn.save_button} type="submit">
+        <button className={resetBtn.save_button} type="submit" disabled={processing}>
           Save
         </button>
         <button

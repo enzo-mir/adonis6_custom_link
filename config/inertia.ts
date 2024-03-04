@@ -13,6 +13,7 @@ export default defineConfig({
    */
   sharedData: {
     errors: (ctx) => ctx.session.flashMessages.get('errors'),
+    success: (ctx) => ctx.session.flashMessages.get('success'),
     user: async (ctx) => await getUserDatas(ctx),
     header_content: async (ctx) => new GetCustomDatas(ctx, 'header_content').getContent(),
     style: async (ctx) => new GetCustomDatas(ctx, 'style').getContent(),

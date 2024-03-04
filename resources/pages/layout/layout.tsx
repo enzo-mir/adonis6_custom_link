@@ -22,8 +22,9 @@ const Layout = ({ children }) => {
       })
     props.user && setUser(props.user)
 
-    setMessage(props.errors)
-    const timeOut = props.errors?.length * 60
+    props.errors && setMessage(props.errors)
+    props.success && setMessage(props.success)
+    const timeOut = message?.length * 60
 
     setTimeout(
       () => {
@@ -34,7 +35,11 @@ const Layout = ({ children }) => {
   }, [props])
   return (
     <>
-      {props.errors && <MessageModal message={message} open={message ? true : false} />}
+      {props.errors ? (
+        <MessageModal message={message} open={message ? true : false} type="error" />
+      ) : props.success ? (
+        <MessageModal message={message} open={message ? true : false} type="success" />
+      ) : null}
       {children}
     </>
   )
