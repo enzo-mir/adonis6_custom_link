@@ -1,14 +1,20 @@
 import { customProps } from '../../stores/custom_props.store'
 import style from '../../css/text_tab.module.css'
-import { useState, type ChangeEvent, type ElementRef } from 'react'
+import { useState, type ChangeEvent, type ElementRef, useEffect } from 'react'
 import { Reorder } from 'framer-motion'
 import { LinkItems } from './link_items'
+import type { LinkType } from '../../types/props.type'
 
 export const TextTab = () => {
   const [props, setProps] = customProps((state) => [state.props, state.setProps])
-  const [links, setLinks] = useState(
-    props.links as unknown as Array<{ id: number; name: string; link: string }>
-  )
+  const [links, setLinks] = useState<Array<{ id: number; name: string; link: string }>>(props.links)
+
+  useEffect(() => {
+    setProps({
+      ...props,
+      links: links as LinkType,
+    })
+  }, [links])
   function handleChangeHeader(e: ChangeEvent<ElementRef<'input'>>) {
     setProps({
       ...props,
@@ -17,7 +23,6 @@ export const TextTab = () => {
         [e.target.name]: e.target.value,
       },
     })
-    console.log(props)
   }
   return (
     <>
