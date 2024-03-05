@@ -1,14 +1,7 @@
 import { customProps, type PropsType } from '../../stores/custom_props.store'
 import style from '../../css/text_tab.module.css'
 import resetBtn from '../../css/cta_form.module.css'
-import {
-  useState,
-  type ChangeEvent,
-  type ElementRef,
-  useEffect,
-  useRef,
-  type FormEvent,
-} from 'react'
+import { type ChangeEvent, type ElementRef, useEffect, useRef, type FormEvent } from 'react'
 import { Reorder } from 'framer-motion'
 import { LinkItems } from './link_items'
 import type { HeaderProps, LinkType } from '../../types/props.type'
@@ -139,7 +132,7 @@ export const TextTab = () => {
             return <LinkItems key={item.id} item={item} setDatasLinks={setDataLinks} />
           })}
         </Reorder.Group>
-        <div className={style.cta_container}>
+        <div className={style.cta_container_link}>
           <button className={resetBtn.save_button} type="submit">
             Save
           </button>
@@ -149,6 +142,7 @@ export const TextTab = () => {
             onMouseDown={(e) => {
               linkFormRef.current.reset()
               setProps({ ...props, links: pageProps.links })
+              setDataLinks(pageProps.links)
             }}
           >
             Reset

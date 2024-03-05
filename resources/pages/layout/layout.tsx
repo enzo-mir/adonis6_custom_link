@@ -5,12 +5,13 @@ import { themeStore } from '../../stores/theme.store'
 import type { PropsType } from '../../types/props.type'
 import { customProps } from '../../stores/custom_props.store'
 import { userDatas } from '../../stores/user_datas.store'
+import { ThemeProvider } from 'styled-components'
 
 const Layout = ({ children }) => {
   const { props }: { props: PropsType } = usePage()
   const [message, setMessage] = useState<string>('')
   const setProps = customProps((state) => state.setProps)
-  const setTheme = themeStore((state) => state.setTheme)
+  const [theme, setTheme] = themeStore((state) => [state.theme, state.setTheme])
   const setUser = userDatas((state) => state.setUser)
   useEffect(() => {
     props.style && setTheme(props.style)
@@ -33,15 +34,16 @@ const Layout = ({ children }) => {
       timeOut >= 2500 ? timeOut : 2500
     )
   }, [props])
+
   return (
-    <>
+    <ThemeProvider theme={theme || props.style}>
       {props.errors ? (
         <MessageModal message={message} open={message ? true : false} type="error" />
       ) : props.success ? (
         <MessageModal message={message} open={message ? true : false} type="success" />
       ) : null}
       {children}
-    </>
+    </ThemeProvider>
   )
 }
 

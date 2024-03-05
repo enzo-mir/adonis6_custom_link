@@ -5,10 +5,9 @@
   overflow: hidden;
   min-height: 300px;
   height: fit-content;
-  padding-block: 1em;
+  padding-block: 1em 2em;
 }
 .form_Link {
-  position: relative;
   display: grid;
   width: 100%;
   gap: 2em;
@@ -105,7 +104,13 @@
     font-weight: 300;
   }
 }
-.cta_container {
+.cta_container,
+.cta_container_link {
   display: flex;
   gap: 1em;
+}
+
+.cta_container_link {
+  position: fixed;
+  bottom: 10px;
 }

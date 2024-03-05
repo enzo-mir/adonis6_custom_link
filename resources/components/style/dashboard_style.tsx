@@ -16,6 +16,7 @@ const DashboardSection = styled.section`
     display: grid;
     justify-items: center;
     align-items: start;
+    grid-template-columns: 100%;
     grid-template-rows: auto auto minmax(50px, 1fr) auto;
     gap: 1em;
     width: clamp(300px, 40svw, 500px);
@@ -23,6 +24,12 @@ const DashboardSection = styled.section`
     height: max-content;
     max-height: 40svh;
     padding: 1em;
+    overflow: hidden;
+    & > div:last-child {
+      display: flex;
+      gap: 1em;
+      justify-self: end;
+    }
   }
   h1,
   h2 {
@@ -90,6 +97,7 @@ const DashboardSection = styled.section`
 
     & > article {
       max-height: fit-content;
+      overflow: visible;
     }
 
     & ul {

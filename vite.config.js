@@ -6,16 +6,8 @@ import { splitVendorChunkPlugin } from 'vite'
 export default defineConfig({
   plugins: [
     adonisjs({
-      /**
-       * Entrypoints of your application. Each entrypoint will
-       * result in a separate bundle.
-       */
-      entrypoints: ['resources/css/app.css', 'resources/js/app.js'],
+      entrypoints: ['resources/css/app.css'],
       entrypoints: ['resources/js/app.tsx'],
-
-      /**
-       * Paths to watch and reload the browser on file change
-       */
       reload: ['resources/views/**/*.edge'],
     }),
     splitVendorChunkPlugin(),

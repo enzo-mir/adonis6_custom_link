@@ -5,27 +5,17 @@ import encryption from '@adonisjs/core/services/encryption'
 
 export default class GetCustomDatas {
   ctx: HttpContext
-  column: string
-  constructor(ctx: HttpContext, column: string) {
+  constructor(ctx: HttpContext) {
     this.ctx = ctx
-    this.column = column
   }
-  async getContent() {
-    if (this.ctx.auth.user) {
+  async getContent(column: string, id: string | undefined) {
+    if (this.ctx.auth.user || id) {
       const content = await CustomPage.query()
-        .select(`${this.column}`)
-        .where('user_id', this.ctx.auth.user!.id)
+        .select(`${column}`)
+        .where('user_id', id || this.ctx.auth.user!.id)
         .first()
       if (content) {
-        const keyToRetrieve = (content as any)[this.column]
-        if (this.column === 'links') {
-          console.log(
-            encryption.decrypt(
-              'jyHcZQpAoMKlNqiHTfRpjVWoM88S83pvC9Of_HdWV8Fmr4q_upz4cPIn_8ST3hVqLLrnY6N5rchinn_t121k7ECPqIzv5F_f7QlLxDn3dqeqYjc3gIVUE_mzNfY7s6zITKpltjYgGqUSpfc52vs-XmIyIY-K8HPGRGUsYz2xcz8s0zknYadRtpUAzujsk5cq.X05TQ0VpYTJEcjBXUHpTZA.yQcv-qOwqGt4l95XGgzkTUB-wNGqGLAvqZEaKD8'
-            )
-          )
-        }
-
+        const keyToRetrieve = (content as any)[column]
         const decryptedData = encryption.decrypt(keyToRetrieve)
         return decryptedData
       }
@@ -35,11 +25,11 @@ export default class GetCustomDatas {
     return
   }
 
-  async getLinks() {
-    if (this.ctx.auth.user) {
+  async getLinks(id: string | undefined) {
+    if (this.ctx.auth.user || id) {
       const content = await Link.query()
         .select('links')
-        .where('user_id', this.ctx.auth.user!.id)
+        .where('user_id', id || this.ctx.auth.user!.id)
         .first()
       if (content) {
         console.log(content.links)
@@ -50,5 +40,14 @@ export default class GetCustomDatas {
     }
 
     return
+  }
+
+  async previewPage(userid: string) {
+    const style = await this.getContent('style', userid)
+    const headerContent = await this.getContent('header_content', userid)
+    const images = await this.getContent('images', userid)
+    const links = await this.getLinks(userid)
+
+    return { style, header_content: headerContent, images, links }
   }
 }
