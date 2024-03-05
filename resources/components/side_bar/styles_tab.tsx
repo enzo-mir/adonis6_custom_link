@@ -15,11 +15,15 @@ export const StyleTab = () => {
   const propsStyle = props.style
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const value = e.target.value
+
     setData({
       ...data,
       [e.target.name]: !Number.isNaN(Number.parseInt(value)) ? `${value}px` : value,
     })
-    setTheme(data)
+    setTheme({
+      ...theme,
+      [e.target.name]: !Number.isNaN(Number.parseInt(value)) ? `${value}px` : value,
+    })
   }
   const { post, data, setData, processing } = useForm<Theme>({
     body: props.style.body,
@@ -95,7 +99,7 @@ export const StyleTab = () => {
             Number.parseInt(theme?.border_radius.split('px', 1)[0]) ||
             Number.parseInt(propsStyle.border_radius.split('px', 1)[0])
           }
-          onChange={debouncedHandleChange}
+          onChange={handleChange}
         />
         <p>
           {Number.parseInt(theme?.border_radius.split('px', 1)[0]) ||

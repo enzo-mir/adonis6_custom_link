@@ -19,52 +19,72 @@ import { userDatas } from '../../stores/user_datas.store'
 export const TextTab = () => {
   const { props: pageProps }: { props: PropsType } = usePage()
   const [props, setProps] = customProps((state) => [state.props, state.setProps])
-  const [links, setLinks] = useState<Array<{ id: number; name: string; link: string }>>(props.links)
+  const [links, setLinks] = useState<Array<{ id: number; name: string; path: string }>>(
+    props.links.urls
+  )
   const headerFormRef = useRef<ElementRef<'form'>>(null)
   const linkFormRef = useRef<ElementRef<'form'>>(null)
   const user = userDatas((state) => state.user)
-  const { post, data, setData } = useForm<HeaderProps>({
+  const {
+    post: postHeader,
+    data: dataHeader,
+    setData: setDataHeader,
+  } = useForm<HeaderProps>({
     title: props.header_content.title,
     description: props.header_content.description,
   })
 
+  const {
+    post: postLinks,
+    data: dataLinks,
+    setData: setDataLinks,
+  } = useForm<LinkType>(props.links.urls)
+
   useEffect(() => {
     setProps({
       ...props,
-      links: links as LinkType,
+      links: { ...props.links, urls: links as unknown as LinkType },
     })
   }, [links])
   function handleChangeHeader(e: ChangeEvent<ElementRef<'input'>>) {
-    setData({
-      ...data,
+    setDataHeader({
+      ...dataHeader,
       [e.target.name]: e.target.value,
     })
     setProps({
       ...props,
-      header_content: data,
+      header_content: {
+        ...props.header_content,
+        [e.target.name]: e.target.value,
+      },
     })
   }
 
+  function handleSubmitLinks(e: FormEvent) {
+    e.preventDefault()
+    postLinks(`/users/${user.id}/links`, { data: { links: dataLinks } })
+  }
+
   function handleAddLink() {
-    const linksArray: LinkType = props.links
+    const linksArray: LinkType = props.links.urls
     function getHigherId() {
-      const ids = props.links.map((link) => link.id)
+      const ids = props.links.urls.map((link) => link.id)
       return Math.max(...ids)
     }
     linksArray.push({
       id: getHigherId() + 1,
       name: 'google link',
-      link: 'https://www.google.com/',
+      path: 'https://www.google.com/',
     })
 
     setProps({
       ...props,
-      links: linksArray,
+      links: { ...props.links, urls: linksArray },
     })
   }
   function handleSubmitHeader(e: FormEvent) {
     e.preventDefault()
-    post(`/users/${user.id}/header`, { data })
+    postHeader(`/users/${user.id}/header`, { data: dataHeader })
   }
 
   return (
@@ -99,7 +119,7 @@ export const TextTab = () => {
             type="button"
             onClick={(e) => {
               headerFormRef.current.reset()
-              setData(pageProps.header_content)
+              setDataHeader(pageProps.header_content)
               setProps({ ...props, header_content: pageProps.header_content })
             }}
           >
@@ -107,7 +127,7 @@ export const TextTab = () => {
           </button>
         </div>
       </form>
-      <form action="" ref={linkFormRef} className={style.form_Link}>
+      <form ref={linkFormRef} onSubmit={handleSubmitLinks} className={style.form_Link}>
         <div className={style.header_link}>
           <h2>Links</h2>
           <button onClick={handleAddLink} type="button">
@@ -116,19 +136,19 @@ export const TextTab = () => {
         </div>
 
         <Reorder.Group className={style.wrapper_links} axis="y" onReorder={setLinks} values={links}>
-          {props.links.map((item) => {
-            return <LinkItems key={item.id} item={item} />
+          {props.links.urls.map((item) => {
+            return (
+              <LinkItems
+                key={item.id}
+                item={item}
+                setDatasLinks={setDataLinks}
+                datasLinks={dataLinks}
+              />
+            )
           })}
         </Reorder.Group>
         <div className={style.cta_container}>
-          <button
-            className={resetBtn.save_button}
-            type="button"
-            onClick={(e) => {
-              linkFormRef.current.reset()
-              setProps({ ...props, links: pageProps.links })
-            }}
-          >
+          <button className={resetBtn.save_button} type="submit">
             Save
           </button>
           <button

@@ -13,8 +13,5 @@ export default class Link extends BaseModel {
   declare user: relations.BelongsTo<typeof User>
 
   @column()
-  declare link: string
-
-  @column()
-  declare name: string
+  declare links: string
 }

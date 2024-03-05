@@ -3,8 +3,8 @@ import type { Theme } from '../stores/theme.store'
 export type LinkType = [
   {
     id: number
-    link: string
     name: string
+    path: string
   },
 ]
 
@@ -20,7 +20,7 @@ export type PropsType = {
     id: string
   }
   header_content?: HeaderProps
-  links?: LinkType
+  links?: { id: number; urls: LinkType }
   images?: Array<string>
   style?: Theme
   errors?: string

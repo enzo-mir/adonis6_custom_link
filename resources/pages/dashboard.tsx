@@ -6,7 +6,7 @@ import SideBar from '../components/side_bar/side_bar'
 import Layout from './layout/layout'
 import type { PropsType } from '../types/props.type'
 import { customProps } from '../stores/custom_props.store'
-import { AnimatePresence, Reorder, motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 
 const dashboard = (props: PropsType) => {
   const theme = themeStore((state) => state.theme)
@@ -22,7 +22,7 @@ const dashboard = (props: PropsType) => {
             <h2>{propsStore.header_content?.description}</h2>
             <ul>
               <AnimatePresence>
-                {propsStore.links.map((link, id) => {
+                {propsStore.links.urls.map((link, id) => {
                   return (
                     <motion.li
                       key={id}
@@ -30,7 +30,7 @@ const dashboard = (props: PropsType) => {
                       animate={{ opacity: 1, height: '100%', transition: { duration: 0.3 } }}
                       exit={{ opacity: 0, height: '0%' }}
                     >
-                      <a href={link.link} target="_blank">
+                      <a href={link.path} target="_blank">
                         {link.name}
                       </a>
                     </motion.li>

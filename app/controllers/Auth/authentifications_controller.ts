@@ -20,19 +20,17 @@ export default class AuthentificationsController {
       }),
       images: null,
     })
+    const links: any = {
+      links: [
+        { id: 1, path: 'https://www.google.com/', name: 'google' },
+        { id: 2, path: 'https://www.youtube.com/', name: 'youtube' },
+      ],
+    }
 
-    await db.table('links').multiInsert([
-      {
-        user_id: userfind.id,
-        name: 'Google',
-        link: 'https://www.google.com/',
-      },
-      {
-        user_id: userfind.id,
-        name: 'Youtube',
-        link: 'https://www.youtube.com/',
-      },
-    ])
+    await db.table('links').insert({
+      user_id: userfind.id,
+      links,
+    })
 
     return customPage
   }

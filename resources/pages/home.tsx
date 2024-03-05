@@ -4,7 +4,6 @@ import { useState } from 'react'
 import logger_style from '../css/logger.module.css'
 import Login from '../components/login'
 import Signin from '../components/signin'
-import MessageModal from '../components/modal/message_modal'
 import Layout from './layout/layout'
 
 export default function Home() {

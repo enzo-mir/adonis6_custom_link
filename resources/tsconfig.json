@@ -17,5 +17,6 @@
     "verbatimModuleSyntax": true,
     "skipLibCheck": true
   },
-  "include": ["./**/*.ts", "./**/*.tsx", "app.tsx.stub"]
+  "include": ["./**/*.ts", "./**/*.tsx", "app.tsx.stub"],
+  "exclude": ["node_modules"]
 }
