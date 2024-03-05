@@ -2,10 +2,7 @@ import { create } from 'zustand'
 import type { LinkType } from '../types/props.type'
 
 export type PropsType = {
-  links: {
-    id: number
-    urls: LinkType
-  }
+  links: LinkType
   header_content: {
     title: string
     description: string
@@ -24,16 +21,13 @@ export const customProps = create<PropsStoreType>((set) => ({
       description: '',
     },
     images: [],
-    links: {
-      id: 0,
-      urls: [
-        {
-          id: 0,
-          name: '',
-          path: '',
-        },
-      ],
-    },
+    links: [
+      {
+        id: 0,
+        name: '',
+        path: '',
+      },
+    ],
   },
   setProps: (val) => set(() => ({ props: val })),
 }))

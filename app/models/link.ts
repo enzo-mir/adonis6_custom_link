@@ -3,9 +3,6 @@ import User from './user.js'
 import * as relations from '@adonisjs/lucid/types/relations'
 
 export default class Link extends BaseModel {
-  @column({ isPrimary: true })
-  declare id: number
-
   @column()
   declare user_id: string
 

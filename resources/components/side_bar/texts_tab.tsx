@@ -19,9 +19,7 @@ import { userDatas } from '../../stores/user_datas.store'
 export const TextTab = () => {
   const { props: pageProps }: { props: PropsType } = usePage()
   const [props, setProps] = customProps((state) => [state.props, state.setProps])
-  const [links, setLinks] = useState<Array<{ id: number; name: string; path: string }>>(
-    props.links.urls
-  )
+
   const headerFormRef = useRef<ElementRef<'form'>>(null)
   const linkFormRef = useRef<ElementRef<'form'>>(null)
   const user = userDatas((state) => state.user)
@@ -34,18 +32,14 @@ export const TextTab = () => {
     description: props.header_content.description,
   })
 
-  const {
-    post: postLinks,
-    data: dataLinks,
-    setData: setDataLinks,
-  } = useForm<LinkType>(props.links.urls)
+  const { post: postLinks, data: dataLinks, setData: setDataLinks } = useForm<LinkType>(props.links)
 
   useEffect(() => {
     setProps({
       ...props,
-      links: { ...props.links, urls: links as unknown as LinkType },
+      links: dataLinks as unknown as LinkType,
     })
-  }, [links])
+  }, [dataLinks])
   function handleChangeHeader(e: ChangeEvent<ElementRef<'input'>>) {
     setDataHeader({
       ...dataHeader,
@@ -66,9 +60,9 @@ export const TextTab = () => {
   }
 
   function handleAddLink() {
-    const linksArray: LinkType = props.links.urls
+    const linksArray: LinkType = props.links
     function getHigherId() {
-      const ids = props.links.urls.map((link) => link.id)
+      const ids = props.links.map((link) => link.id)
       return Math.max(...ids)
     }
     linksArray.push({
@@ -79,7 +73,7 @@ export const TextTab = () => {
 
     setProps({
       ...props,
-      links: { ...props.links, urls: linksArray },
+      links: linksArray,
     })
   }
   function handleSubmitHeader(e: FormEvent) {
@@ -135,16 +129,14 @@ export const TextTab = () => {
           </button>
         </div>
 
-        <Reorder.Group className={style.wrapper_links} axis="y" onReorder={setLinks} values={links}>
-          {props.links.urls.map((item) => {
-            return (
-              <LinkItems
-                key={item.id}
-                item={item}
-                setDatasLinks={setDataLinks}
-                datasLinks={dataLinks}
-              />
-            )
+        <Reorder.Group
+          className={style.wrapper_links}
+          axis="y"
+          onReorder={setDataLinks}
+          values={dataLinks}
+        >
+          {dataLinks.map((item) => {
+            return <LinkItems key={item.id} item={item} setDatasLinks={setDataLinks} />
           })}
         </Reorder.Group>
         <div className={style.cta_container}>

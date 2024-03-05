@@ -20,7 +20,7 @@ export type PropsType = {
     id: string
   }
   header_content?: HeaderProps
-  links?: { id: number; urls: LinkType }
+  links?: LinkType
   images?: Array<string>
   style?: Theme
   errors?: string

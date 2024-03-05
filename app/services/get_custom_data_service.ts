@@ -38,12 +38,13 @@ export default class GetCustomDatas {
   async getLinks() {
     if (this.ctx.auth.user) {
       const content = await Link.query()
-        .select('id')
         .select('links')
         .where('user_id', this.ctx.auth.user!.id)
         .first()
       if (content) {
-        return { id: content.id, urls: JSON.parse(content.links).links }
+        console.log(content.links)
+
+        return JSON.parse(content.links).links
       }
       return
     }

@@ -12,6 +12,7 @@ const dashboard = (props: PropsType) => {
   const theme = themeStore((state) => state.theme)
   const [openPreview, setOpenPreview] = useState<boolean>(false)
   const [propsStore, setPropsStore] = customProps((state) => [state.props, state.setProps])
+  console.log(props.links.length)
 
   return (
     <ThemeProvider theme={theme || props.style}>
@@ -22,7 +23,7 @@ const dashboard = (props: PropsType) => {
             <h2>{propsStore.header_content?.description}</h2>
             <ul>
               <AnimatePresence>
-                {propsStore.links.urls.map((link, id) => {
+                {propsStore.links.map((link, id) => {
                   return (
                     <motion.li
                       key={id}

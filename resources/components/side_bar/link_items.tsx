@@ -10,11 +10,9 @@ import { useRef, type ChangeEvent, useEffect, type ElementRef, type FormEvent } 
 export const LinkItems = ({
   item,
   setDatasLinks,
-  datasLinks,
 }: {
   item: LinkType[0]
   setDatasLinks(v: LinkType): void
-  datasLinks: LinkType
 }) => {
   const [props, setProps] = customProps((state) => [state.props, state.setProps])
   const y = useMotionValue(0)
@@ -36,12 +34,12 @@ export const LinkItems = ({
   function handlechange(e: ChangeEvent<HTMLInputElement>, id: number) {
     let updateState = (prevProps: PropsType) => {
       if (prevProps) {
-        const updatedLinks = prevProps.links.urls.map((link) => {
+        const updatedLinks = prevProps.links.map((link) => {
           if (link.id === id) {
             return {
               ...link,
               name: e.target.name === 'name' ? e.target.value : link.name,
-              link: e.target.name === 'link' ? e.target.value : link.path,
+              path: e.target.name === 'link' ? e.target.value : link.path,
             }
           }
           return link
@@ -50,7 +48,7 @@ export const LinkItems = ({
 
         return {
           ...prevProps,
-          links: { id: props.links.id, urls: updatedLinks as LinkType },
+          links: updatedLinks as LinkType,
         }
       }
     }
@@ -58,13 +56,16 @@ export const LinkItems = ({
   }
 
   function handleDeleteLink(id: number) {
-    const linksArray: LinkType = [...props.links.urls]
+    const linksArray: LinkType = [...props.links]
     const filteredArray = linksArray.filter((link) => (link.id === id ? false : true)) as LinkType
+
+    setDatasLinks(filteredArray)
     setProps({
       ...props,
-      links: { ...props.links, urls: filteredArray },
+      links: filteredArray,
     })
   }
+
   return (
     <Reorder.Item
       value={item}
