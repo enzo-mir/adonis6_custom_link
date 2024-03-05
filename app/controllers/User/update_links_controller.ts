@@ -13,14 +13,18 @@ export default class UpdateLinksController {
       await Link.query()
         .where('user_id', userid)
         .update({ links: JSON.stringify({ links: linksDatas }) })
-
+      ctx.session.flash({
+        success: 'Links updated !',
+      })
       return ctx.response.redirect().back()
     } catch (error) {
-      console.log(error)
-
       if (error instanceof ZodError) {
         ctx.session.flash({
           errors: error.issues[0].message,
+        })
+      } else {
+        ctx.session.flash({
+          errors: 'Something went wrong !',
         })
       }
       return ctx.response.redirect().back()
