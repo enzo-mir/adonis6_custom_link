@@ -18,7 +18,7 @@ export default class AuthentificationsController {
         border_radius: '10px',
         header_color: '#F4414D',
       }),
-      images: null,
+      images: encryption.encrypt({ image: ['', ''] }),
     })
     const links: any = {
       links: [

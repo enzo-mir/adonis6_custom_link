@@ -2,13 +2,12 @@ import { customProps, type PropsType } from '../../stores/custom_props.store'
 import style from '../../css/text_tab.module.css'
 import resetBtn from '../../css/cta_form.module.css'
 import { type ChangeEvent, type ElementRef, useEffect, useRef, type FormEvent } from 'react'
-import { Reorder } from 'framer-motion'
+import { Reorder, motion } from 'framer-motion'
 import { LinkItems } from './link_items'
 import type { HeaderProps, LinkType } from '../../types/props.type'
 import { useForm, usePage } from '@inertiajs/react'
 import { DeletIcon } from '../../assets/images/delete_icon'
 import { userDatas } from '../../stores/user_datas.store'
-import { motion } from 'framer-motion'
 export const TextTab = () => {
   const { props: pageProps }: { props: PropsType } = usePage()
   const [props, setProps] = customProps((state) => [state.props, state.setProps])

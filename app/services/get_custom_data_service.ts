@@ -16,8 +16,8 @@ export default class GetCustomDatas {
         .first()
       if (content) {
         const keyToRetrieve = (content as any)[column]
-        const decryptedData = encryption.decrypt(keyToRetrieve)
-        return decryptedData
+        const decryptedData: any = encryption.decrypt(keyToRetrieve)
+        return column === 'images' ? decryptedData.image : decryptedData
       }
       return
     }

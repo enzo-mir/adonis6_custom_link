@@ -5,6 +5,7 @@ import closeIcon from '../../assets/images/close-button.svg'
 import { StyleTab } from './styles_tab'
 import { TextTab } from './texts_tab'
 import { AnimatePresence } from 'framer-motion'
+import Imagetab from './image_tab'
 const SideBar = () => {
   const [openSideBar, setOpenSideBar] = useState<boolean>(true)
   const [currentTab, setCurrentTab] = useState<'style' | 'text' | 'images'>('style')
@@ -47,7 +48,13 @@ const SideBar = () => {
           </ul>
         </nav>
         <AnimatePresence>
-          {currentTab === 'style' ? <StyleTab /> : currentTab === 'text' ? <TextTab /> : null}
+          {currentTab === 'style' ? (
+            <StyleTab />
+          ) : currentTab === 'text' ? (
+            <TextTab />
+          ) : (
+            <Imagetab />
+          )}
         </AnimatePresence>
       </aside>
     </>
