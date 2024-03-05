@@ -32,8 +32,6 @@ export default class GetCustomDatas {
         .where('user_id', id || this.ctx.auth.user!.id)
         .first()
       if (content) {
-        console.log(content.links)
-
         return JSON.parse(content.links).links
       }
       return

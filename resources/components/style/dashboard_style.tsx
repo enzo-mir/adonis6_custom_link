@@ -73,21 +73,20 @@ const DashboardSection = styled.section`
   & button {
     background-color: ${(provider) => provider.theme.body};
     justify-self: end;
-    opacity: 0.75;
+    opacity: 1;
     padding: 0.5em;
     border: none;
     border-radius: 5px;
     transition: filter 0.25s ease-out;
-    backdrop-filter: blur(10px);
     color: white;
-    background-color: #333;
+    background-color: #000;
     font-size: clamp(0.8em, 1.8vw, 1em);
     font-weight: bold;
     &:hover,
     &:focus-visible {
       cursor: pointer;
       filter: brightness(75%);
-      opacity: 1;
+      opacity: 0.75;
     }
   }
 

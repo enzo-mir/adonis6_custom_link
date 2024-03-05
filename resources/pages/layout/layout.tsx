@@ -6,6 +6,7 @@ import type { PropsType } from '../../types/props.type'
 import { customProps } from '../../stores/custom_props.store'
 import { userDatas } from '../../stores/user_datas.store'
 import { ThemeProvider } from 'styled-components'
+import { AnimatePresence } from 'framer-motion'
 
 const Layout = ({ children }) => {
   const { props }: { props: PropsType } = usePage()
@@ -37,11 +38,13 @@ const Layout = ({ children }) => {
 
   return (
     <ThemeProvider theme={theme || props.style}>
-      {props.errors ? (
-        <MessageModal message={message} open={message ? true : false} type="error" />
-      ) : props.success ? (
-        <MessageModal message={message} open={message ? true : false} type="success" />
-      ) : null}
+      <AnimatePresence>
+        {props.errors ? (
+          <MessageModal message={message} open={message ? true : false} type="error" />
+        ) : props.success ? (
+          <MessageModal message={message} open={message ? true : false} type="success" />
+        ) : null}
+      </AnimatePresence>
       {children}
     </ThemeProvider>
   )

@@ -14,10 +14,10 @@
   text-align: center;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
   z-index: 500;
-  &[data-type='error'] {
-    background-color: salmon;
-  }
-  &[data-type='success'] {
-    background-color: hsl(135, 31%, 50%);
-  }
+}
+.modal[data-type='error'] {
+  background-color: salmon;
+}
+.modal[data-type='success'] {
+  background-color: hsl(135, 31%, 50%);
 }
