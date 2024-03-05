@@ -131,11 +131,17 @@
   border: none;
   background-color: #fff;
   padding: 0.5em;
+  transition: all 0.25s ease-out;
+
+  & img {
+    width: clamp(25px, 3svw, 40px);
+  }
   &:hover,
   &:focus-visible {
     cursor: pointer;
     filter: brightness(75%);
     opacity: 1;
+    scale: 1.1;
   }
 }
 

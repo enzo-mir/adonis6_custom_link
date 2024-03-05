@@ -39,8 +39,8 @@ export const StyleTab = () => {
       data,
     })
   }
-
   const debouncedHandleChange = useDebounce(handleChange, 1)
+
   return (
     <form onSubmit={handleSubmit} ref={styleFormRef} className={style.form}>
       <label htmlFor="body">

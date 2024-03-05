@@ -67,7 +67,7 @@ const DashboardSection = styled.section`
     text-decoration: none;
     width: 100%;
     padding: 0.5em;
-    font-size: clamp(0.8em, 1.8vw, 1.2em);
+    font-size: clamp(1em, 1.8vw, 1.2em);
   }
 
   & button {
@@ -79,10 +79,10 @@ const DashboardSection = styled.section`
     border-radius: 5px;
     transition: filter 0.25s ease-out;
     backdrop-filter: blur(10px);
-    color: red;
-    background-color: #fff;
+    color: white;
+    background-color: #333;
+    font-size: clamp(0.8em, 1.8vw, 1em);
     font-weight: bold;
-
     &:hover,
     &:focus-visible {
       cursor: pointer;
