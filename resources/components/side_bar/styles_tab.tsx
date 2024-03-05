@@ -6,7 +6,7 @@ import { useForm, usePage } from '@inertiajs/react'
 import style from '../../css/sidebar.module.css'
 import resetBtn from '../../css/cta_form.module.css'
 import { userDatas } from '../../stores/user_datas.store'
-
+import { motion } from 'framer-motion'
 export const StyleTab = () => {
   const [theme, setTheme] = themeStore((state) => [state.theme, state.setTheme])
   const { props }: { props: PropsType } = usePage()
@@ -42,7 +42,14 @@ export const StyleTab = () => {
   const debouncedHandleChange = useDebounce(handleChange, 1)
 
   return (
-    <form onSubmit={handleSubmit} ref={styleFormRef} className={style.form}>
+    <motion.form
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 50 }}
+      onSubmit={handleSubmit}
+      ref={styleFormRef}
+      className={style.form}
+    >
       <label htmlFor="body">
         Background color
         <input
@@ -122,6 +129,6 @@ export const StyleTab = () => {
           Reset
         </button>
       </div>
-    </form>
+    </motion.form>
   )
 }

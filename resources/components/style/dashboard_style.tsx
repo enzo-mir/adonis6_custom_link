@@ -6,7 +6,6 @@ const DashboardSection = styled.section`
   place-items: center;
   transition: all 0.3s ease-out;
   background-color: ${(provider) => provider.theme.body};
-  box-shadow: 0 20px 20px 0px rgba(0, 0, 0, 0.3);
   width: clamp(300px, 40svw, 500px);
   height: 40svh;
   min-height: 300px;

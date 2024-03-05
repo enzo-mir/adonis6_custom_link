@@ -20,7 +20,17 @@ const dashboard = (props: PropsType) => {
         ) : null}
       </AnimatePresence>
       <DashboardMain>
-        <DashboardSection className={openPreview ? 'preview' : null}>
+        <DashboardSection
+          className={openPreview ? 'preview' : null}
+          as={motion.section}
+          initial={{ opacity: 0, y: -50, boxShadow: '0 0px 0px 0px rgba(0, 0, 0, 0)' }}
+          animate={{
+            opacity: 1,
+            y: 0,
+            boxShadow: '0 20px 20px 0px rgba(0, 0, 0, 0.3)',
+            transition: { duration: 0.5 },
+          }}
+        >
           <article>
             <h1>{propsStore.header_content?.title}</h1>
             <h2>{propsStore.header_content?.description}</h2>
@@ -30,9 +40,9 @@ const dashboard = (props: PropsType) => {
                   return (
                     <motion.li
                       key={id}
-                      initial={{ opacity: 0, height: '0%' }}
-                      animate={{ opacity: 1, height: '100%', transition: { duration: 0.3 } }}
-                      exit={{ opacity: 0, height: '0%' }}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1, transition: { duration: 0.3 } }}
+                      exit={{ opacity: 0 }}
                     >
                       <a href={link.path} target="_blank">
                         {link.name}

@@ -8,7 +8,7 @@ import type { HeaderProps, LinkType } from '../../types/props.type'
 import { useForm, usePage } from '@inertiajs/react'
 import { DeletIcon } from '../../assets/images/delete_icon'
 import { userDatas } from '../../stores/user_datas.store'
-
+import { motion } from 'framer-motion'
 export const TextTab = () => {
   const { props: pageProps }: { props: PropsType } = usePage()
   const [props, setProps] = customProps((state) => [state.props, state.setProps])
@@ -76,7 +76,14 @@ export const TextTab = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmitHeader} ref={headerFormRef} className={style.header_container}>
+      <motion.form
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 50 }}
+        onSubmit={handleSubmitHeader}
+        ref={headerFormRef}
+        className={style.header_container}
+      >
         <h2>Header</h2>
         <label htmlFor="title">
           <p>Title</p>
@@ -113,7 +120,7 @@ export const TextTab = () => {
             Reset
           </button>
         </div>
-      </form>
+      </motion.form>
       <form ref={linkFormRef} onSubmit={handleSubmitLinks} className={style.form_Link}>
         <div className={style.header_link}>
           <h2>Links</h2>

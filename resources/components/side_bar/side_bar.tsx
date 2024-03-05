@@ -4,6 +4,7 @@ import burgerIcon from '../../assets/images/burger-menu.svg'
 import closeIcon from '../../assets/images/close-button.svg'
 import { StyleTab } from './styles_tab'
 import { TextTab } from './texts_tab'
+import { AnimatePresence } from 'framer-motion'
 const SideBar = () => {
   const [openSideBar, setOpenSideBar] = useState<boolean>(true)
   const [currentTab, setCurrentTab] = useState<'style' | 'text' | 'images'>('style')
@@ -45,8 +46,9 @@ const SideBar = () => {
             </li>
           </ul>
         </nav>
-
-        {currentTab === 'style' ? <StyleTab /> : currentTab === 'text' ? <TextTab /> : null}
+        <AnimatePresence>
+          {currentTab === 'style' ? <StyleTab /> : currentTab === 'text' ? <TextTab /> : null}
+        </AnimatePresence>
       </aside>
     </>
   )
