@@ -56,7 +56,7 @@ const dashboard = (props: PropsType) => {
               <button onClick={() => setOpenPreview(openPreview ? false : true)}>Preview</button>
               <button
                 onClick={() => {
-                  navigator.clipboard.writeText(`${window.location.origin}/${user.id}`)
+                  navigator.clipboard.writeText(`${window.location.origin}/${user.username}`)
                   setCopyLink(true)
                   setTimeout(() => {
                     setCopyLink(false)

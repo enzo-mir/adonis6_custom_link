@@ -1,3 +1,4 @@
+import User from '#models/user'
 import GetCustomDatas from '#services/get_custom_data_service'
 import { HttpContext } from '@adonisjs/core/http'
 
@@ -20,10 +21,15 @@ export default class PagesController {
   }
 
   async custom_page(ctx: HttpContext) {
-    const { userid } = ctx.params
-    ctx.inertia.share({ user: false })
-    const customPageProps = await new GetCustomDatas(ctx).previewPage(userid)
+    const { username } = ctx.params
+    const useridFind = await User.findBy('username', username)
+    if (useridFind) {
+      ctx.inertia.share({ user: false })
+      const customPageProps = await new GetCustomDatas(ctx).previewPage(useridFind.id)
 
-    return ctx.inertia.render('custom', { ...customPageProps })
+      return ctx.inertia.render('custom', { ...customPageProps })
+    } else {
+      return ctx.view.render('error/not_found')
+    }
   }
 }

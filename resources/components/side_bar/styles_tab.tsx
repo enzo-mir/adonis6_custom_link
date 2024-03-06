@@ -39,7 +39,7 @@ export const StyleTab = () => {
       data,
     })
   }
-  const debouncedHandleChange = useDebounce(handleChange, 1)
+  const debouncedHandleChange = useDebounce(handleChange, 100)
 
   return (
     <motion.form

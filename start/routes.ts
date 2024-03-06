@@ -30,7 +30,7 @@ router
   })
   .prefix('auth')
 
-router.get('/:userid', [PagesController, 'custom_page'])
+router.get('/:username', [PagesController, 'custom_page'])
 
 router
   .group(() => {

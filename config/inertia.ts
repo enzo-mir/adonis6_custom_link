@@ -17,7 +17,6 @@ export default defineConfig({
     user: async (ctx) => await getUserDatas(ctx),
     header_content: async (ctx) => new GetCustomDatas(ctx).getContent('header_content', undefined),
     style: async (ctx) => new GetCustomDatas(ctx).getContent('style', undefined),
-    images: async (ctx) => new GetCustomDatas(ctx).getContent('images', undefined),
     links: async (ctx) => new GetCustomDatas(ctx).getLinks(undefined),
   },
 })

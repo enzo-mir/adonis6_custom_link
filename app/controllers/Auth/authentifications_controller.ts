@@ -45,7 +45,7 @@ export default class AuthentificationsController {
         if (customProps) {
           await ctx.auth.use('web').login(userfind)
 
-          return ctx.response.redirect('/dahsboard')
+          return ctx.response.redirect().toPath(`/dashboard/${userfind.id}`)
         }
       } else {
         throw new Error('Something went wrong !')
@@ -78,8 +78,8 @@ export default class AuthentificationsController {
     try {
       const { username, password } = ctx.request.all()
       const user = await User.verifyCredentials(username, password)
-      ctx.auth.use('web').login(user)
-      return ctx.response.redirect(`/dashboard/${user.id}`)
+      await ctx.auth.use('web').login(user)
+      return ctx.response.redirect().toPath(`/dashboard/${user.id}`)
     } catch (error) {
       ctx.session.flash({
         errors: 'Credentials does not matches !',
