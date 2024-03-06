@@ -120,7 +120,7 @@ export const StyleTab = () => {
         <button
           className={resetBtn.reset_button}
           type="button"
-          onMouseDown={(e) => {
+          onClick={(e) => {
             styleFormRef.current.reset()
             setTheme(props.style)
             setData(props.style)

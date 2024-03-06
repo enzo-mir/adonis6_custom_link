@@ -36,10 +36,10 @@ const dashboard = (props: PropsType) => {
             <h2>{propsStore.header_content?.description}</h2>
             <ul>
               <AnimatePresence>
-                {propsStore.links.map((link, id) => {
+                {propsStore.links.map((link, index) => {
                   return (
                     <motion.li
-                      key={id}
+                      key={index}
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1, transition: { duration: 0.3 } }}
                       exit={{ opacity: 0 }}

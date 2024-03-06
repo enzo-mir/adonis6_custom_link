@@ -6,6 +6,8 @@
   min-height: 300px;
   height: fit-content;
   padding-block: 1em 2em;
+  max-height: 40svh;
+  overflow-y: scroll;
 }
 .form_Link {
   display: grid;
@@ -90,7 +92,6 @@
   display: grid;
   width: 100%;
   gap: 2em;
-  padding-inline-end: 2em;
   & p {
     font-weight: 500;
   }

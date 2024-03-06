@@ -21,13 +21,13 @@ const SideBar = () => {
           </button>
           <ul>
             <li
-              aria-active={currentTab === 'style' ? 'true' : 'false'}
+              data-active={currentTab === 'style' ? 'true' : 'false'}
               onClick={() => setCurrentTab('style')}
             >
               Styles
             </li>
             <li
-              aria-active={currentTab === 'text' ? 'true' : 'false'}
+              data-active={currentTab === 'text' ? 'true' : 'false'}
               onClick={() => setCurrentTab('text')}
             >
               Texts
@@ -37,6 +37,9 @@ const SideBar = () => {
         <AnimatePresence>
           {currentTab === 'style' ? <StyleTab /> : currentTab === 'text' ? <TextTab /> : null}
         </AnimatePresence>
+        <a href="/logout" className={style.logout}>
+          Logout
+        </a>
       </aside>
     </>
   )

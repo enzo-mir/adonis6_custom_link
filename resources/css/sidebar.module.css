@@ -15,7 +15,7 @@
   padding: 1em 0em;
   min-width: 0px;
   max-height: 100svh;
-  overflow-y: scroll;
+
 
   &::-webkit-scrollbar {
     width: 12px;
@@ -73,7 +73,7 @@
         }
       }
 
-      li[aria-active='true']::after {
+      li[data-active='true']::after {
         width: 100%;
       }
     }
@@ -148,4 +148,23 @@
 .cta_container {
   display: flex;
   gap: 1em;
+}
+
+.logout {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  transform: translateX(calc(-100% - 10px));
+  width: fit-content;
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  background: hsl(0, 0%, 0%);
+  &:hover,
+  &:focus-visible {
+    cursor: pointer;
+    filter: brightness(75%);
+    opacity: 1;
+  }
 }
