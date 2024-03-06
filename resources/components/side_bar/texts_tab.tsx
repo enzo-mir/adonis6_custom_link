@@ -54,12 +54,16 @@ export const TextTab = () => {
   function handleAddLink() {
     const linksArray: LinkType = props.links
     function getHigherId() {
-      const ids = props.links.map((link) => link.id)
-      return Math.max(...ids)
+      if (props.links.length) {
+        const ids = props.links.map((link) => link.id)
+        return Math.max(...ids) + 1
+      }
+      return 0
     }
+
     linksArray.push({
-      id: getHigherId() + 1,
-      name: 'google link',
+      id: getHigherId(),
+      name: 'Google link',
       path: 'https://www.google.com/',
     })
 

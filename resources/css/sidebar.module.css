@@ -47,7 +47,7 @@
     width: 100%;
     ul {
       display: flex;
-      justify-content: space-between;
+      justify-content: space-around;
       align-items: center;
       font-size: clamp(1.2em, 1.5vw, 1.5em);
       list-style-type: none;

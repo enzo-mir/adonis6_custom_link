@@ -7,7 +7,7 @@ const DashboardSection = styled.section`
   transition: all 0.3s ease-out;
   background-color: ${(provider) => provider.theme.body};
   width: clamp(300px, 40svw, 500px);
-  height: 40svh;
+  height: 0svh;
   min-height: 300px;
 
   & article {
@@ -16,13 +16,13 @@ const DashboardSection = styled.section`
     justify-items: center;
     align-items: start;
     grid-template-columns: 100%;
-    grid-template-rows: auto auto minmax(50px, 1fr) auto;
+    grid-template-rows: auto auto minmax(100px, 1fr) auto;
+    background-color: ${(provider) => provider.theme.body};
     gap: 1em;
     width: clamp(300px, 40svw, 500px);
-    min-height: 300px;
+    min-height: 350px;
     height: max-content;
-    max-height: 40svh;
-    padding: 1em;
+    padding: 2em 1em;
     overflow: hidden;
     & > div:last-child {
       display: flex;
@@ -34,6 +34,7 @@ const DashboardSection = styled.section`
   h2 {
     color: ${(provider) => provider.theme.header_color};
     text-align: center;
+    overflow-wrap: anywhere;
   }
   h1 {
     font-size: clamp(1.5em, 2.5vw, 2.5em);
@@ -49,7 +50,7 @@ const DashboardSection = styled.section`
     width: 100%;
     max-width: 500px;
     padding-block: 2em 0;
-    max-height: 100%;
+    height: 100%;
     overflow-y: auto;
     transition: all 0.25s ease-out;
   }

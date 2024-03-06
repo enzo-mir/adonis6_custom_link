@@ -46,6 +46,7 @@ export const MainCustomPage = styled.main`
   h2 {
     color: ${(provider) => provider.theme.header_color};
     text-align: center;
+    overflow-wrap: anywhere;
   }
   h1 {
     font-size: clamp(1.5em, 2.5vw, 2.5em);
