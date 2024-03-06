@@ -16,8 +16,5 @@ export default class CustomPage extends BaseModel {
   declare header_content: string
 
   @column()
-  declare images: string | null
-
-  @column()
   declare style: string
 }

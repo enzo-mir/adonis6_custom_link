@@ -1,27 +1,20 @@
 import style from '../../css/sidebar.module.css'
-import { useEffect, useRef, useState, type ElementRef } from 'react'
+import { useState } from 'react'
 import burgerIcon from '../../assets/images/burger-menu.svg'
 import closeIcon from '../../assets/images/close-button.svg'
 import { StyleTab } from './styles_tab'
 import { TextTab } from './texts_tab'
 import { AnimatePresence } from 'framer-motion'
-import Imagetab from './image_tab'
 const SideBar = () => {
   const [openSideBar, setOpenSideBar] = useState<boolean>(true)
-  const [currentTab, setCurrentTab] = useState<'style' | 'text' | 'images'>('style')
-  const asideRef = useRef<ElementRef<'aside'>>(null)
-  document.body.addEventListener('pointerdown', (e) => {
-    if (!asideRef.current.contains(e.target as HTMLElement)) {
-      setOpenSideBar(false)
-    }
-  })
+  const [currentTab, setCurrentTab] = useState<'style' | 'text'>('style')
 
   return (
     <>
       <button className={style.openButton} onClick={() => setOpenSideBar(true)}>
         <img src={burgerIcon} alt="burger button to open tab bar" />
       </button>
-      <aside className={style.aside} ref={asideRef} data-open={openSideBar}>
+      <aside className={style.aside} data-open={openSideBar}>
         <nav>
           <button onClick={() => setOpenSideBar(false)}>
             <img src={closeIcon} alt="burger button to close tab bar" />
@@ -39,22 +32,10 @@ const SideBar = () => {
             >
               Texts
             </li>
-            <li
-              aria-active={currentTab === 'images' ? 'true' : 'false'}
-              onClick={() => setCurrentTab('images')}
-            >
-              Images
-            </li>
           </ul>
         </nav>
         <AnimatePresence>
-          {currentTab === 'style' ? (
-            <StyleTab />
-          ) : currentTab === 'text' ? (
-            <TextTab />
-          ) : (
-            <Imagetab />
-          )}
+          {currentTab === 'style' ? <StyleTab /> : currentTab === 'text' ? <TextTab /> : null}
         </AnimatePresence>
       </aside>
     </>

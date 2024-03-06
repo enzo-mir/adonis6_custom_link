@@ -21,7 +21,6 @@ export type PropsType = {
   }
   header_content?: HeaderProps
   links?: LinkType
-  images?: Array<string>
   style?: Theme
   errors?: string
   success?: string

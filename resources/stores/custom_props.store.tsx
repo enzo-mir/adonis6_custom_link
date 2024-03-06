@@ -7,7 +7,6 @@ export type PropsType = {
     title: string
     description: string
   }
-  images: Array<string>
 }
 type PropsStoreType = {
   props: PropsType

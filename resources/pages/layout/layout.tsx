@@ -20,7 +20,6 @@ const Layout = ({ children }) => {
       setProps({
         links: props.links,
         header_content: props.header_content,
-        images: props.images,
       })
     props.user && setUser(props.user)
 

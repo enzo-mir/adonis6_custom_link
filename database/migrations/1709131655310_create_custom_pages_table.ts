@@ -8,7 +8,6 @@ export default class extends BaseSchema {
       table.increments('id').primary()
       table.uuid('user_id').references('id').inTable('users').onDelete('CASCADE')
       table.string('header_content').notNullable()
-      table.string('images').nullable()
       table.string('style').notNullable()
     })
   }

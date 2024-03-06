@@ -17,7 +17,7 @@ export default class GetCustomDatas {
       if (content) {
         const keyToRetrieve = (content as any)[column]
         const decryptedData: any = encryption.decrypt(keyToRetrieve)
-        return column === 'images' ? decryptedData.image : decryptedData
+        return decryptedData
       }
       return
     }
@@ -43,9 +43,8 @@ export default class GetCustomDatas {
   async previewPage(userid: string) {
     const style = await this.getContent('style', userid)
     const headerContent = await this.getContent('header_content', userid)
-    const images = await this.getContent('images', userid)
     const links = await this.getLinks(userid)
 
-    return { style, header_content: headerContent, images, links }
+    return { style, header_content: headerContent, links }
   }
 }

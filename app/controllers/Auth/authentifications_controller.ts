@@ -18,7 +18,6 @@ export default class AuthentificationsController {
         border_radius: '10px',
         header_color: '#F4414D',
       }),
-      images: encryption.encrypt({ image: ['', ''] }),
     })
     const links: any = {
       links: [
@@ -46,7 +45,7 @@ export default class AuthentificationsController {
         if (customProps) {
           await ctx.auth.use('web').login(userfind)
 
-          return ctx.response.redirect().back()
+          return ctx.response.redirect('/dahsboard')
         }
       } else {
         throw new Error('Something went wrong !')

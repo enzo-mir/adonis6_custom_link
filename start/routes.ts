@@ -34,12 +34,8 @@ router.get('/:userid', [PagesController, 'custom_page'])
 
 router
   .group(() => {
-    router
-      .post('/:userid/style', [UpdateStylesController, 'update'])
-      .middleware([middleware.auth()])
-    router
-      .post('/:userid/header', [UpdateHeadersController, 'update'])
-      .middleware([middleware.auth()])
-    router.post('/:userid/links', [UpdateLinksController, 'update']).middleware([middleware.auth()])
+    router.post('/:userid/style', [UpdateStylesController, 'update']).use(middleware.auth())
+    router.post('/:userid/header', [UpdateHeadersController, 'update']).use(middleware.auth())
+    router.post('/:userid/links', [UpdateLinksController, 'update']).use(middleware.auth())
   })
   .prefix('users')
