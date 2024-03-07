@@ -7,6 +7,7 @@ import { customProps } from '../stores/custom_props.store'
 import { AnimatePresence, motion } from 'framer-motion'
 import { userDatas } from '../stores/user_datas.store'
 import MessageModal from '../components/modal/message_modal'
+import { Head } from '@inertiajs/react'
 const dashboard = (props: PropsType) => {
   const [openPreview, setOpenPreview] = useState<boolean>(false)
   const [propsStore, setPropsStore] = customProps((state) => [state.props, state.setProps])
@@ -14,6 +15,7 @@ const dashboard = (props: PropsType) => {
   const user = userDatas((state) => state.user)
   return (
     <>
+      <Head title="Dashboard" />
       <AnimatePresence>
         {copyLink ? (
           <MessageModal message={'Link copied to clipboard !'} open={copyLink} type={'success'} />
@@ -54,17 +56,9 @@ const dashboard = (props: PropsType) => {
             </ul>
             <div>
               <button onClick={() => setOpenPreview(openPreview ? false : true)}>Preview</button>
-              <button
-                onClick={() => {
-                  navigator.clipboard.writeText(`${window.location.origin}/${user.username}`)
-                  setCopyLink(true)
-                  setTimeout(() => {
-                    setCopyLink(false)
-                  }, 2500)
-                }}
-              >
-                Copy Link
-              </button>
+              <a target="_blank" href={`${window.location.origin}/${user.username}`}>
+                Go to my page
+              </a>
             </div>
           </article>
         </DashboardSection>

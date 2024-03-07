@@ -33,6 +33,25 @@ const DashboardSection = styled.section`
       display: flex;
       gap: 1em;
       justify-self: end;
+
+      & a {
+        justify-self: end;
+        opacity: 1;
+        padding: 0.5em;
+        border: none;
+        border-radius: 5px;
+        transition: filter 0.25s ease-out;
+        color: white;
+        background-color: #000;
+        font-size: clamp(0.8em, 1.8vw, 1em);
+        font-weight: bold;
+        &:hover,
+        &:focus-visible {
+          cursor: pointer;
+          filter: brightness(75%);
+          opacity: 0.75;
+        }
+      }
     }
   }
   h1,
@@ -76,7 +95,6 @@ const DashboardSection = styled.section`
   }
 
   & button {
-    background-color: ${(provider) => provider.theme.body};
     justify-self: end;
     opacity: 1;
     padding: 0.5em;

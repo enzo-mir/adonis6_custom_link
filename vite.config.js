@@ -6,8 +6,7 @@ import { splitVendorChunkPlugin } from 'vite'
 export default defineConfig({
   plugins: [
     adonisjs({
-      entrypoints: ['resources/css/app.css'],
-      entrypoints: ['resources/js/app.tsx'],
+      entrypoints: ['resources/css/app.css', 'resources/app.tsx'],
       reload: ['resources/views/**/*.edge'],
     }),
     splitVendorChunkPlugin(),

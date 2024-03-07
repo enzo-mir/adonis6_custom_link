@@ -1,10 +1,12 @@
 import type { PropsType } from '~/types/props.type'
 import { MainCustomPage } from '../components/style/custom_page_style'
 import Layout from './layout/layout'
+import { Head } from '@inertiajs/react'
 
 const custom = (props: PropsType) => {
   return (
     <MainCustomPage>
+      <Head title="Custom page" />
       <article>
         <h1>{props.header_content.title}</h1>
         <h2>{props.header_content.description}</h2>

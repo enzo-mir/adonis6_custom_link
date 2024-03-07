@@ -3,7 +3,7 @@ import './css/app.css'
 import { createRoot } from 'react-dom/client'
 import { createInertiaApp } from '@inertiajs/react'
 
-const appName = import.meta.env.VITE_APP_NAME || 'AdonisJS'
+const appName = import.meta.env.VITE_APP_NAME || 'Link 4'
 
 createInertiaApp({
   progress: { color: '#5468FF' },
