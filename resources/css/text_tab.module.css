@@ -3,10 +3,10 @@
   flex-direction: column;
   gap: 2em;
   overflow: hidden;
-  min-height: 300px;
+  min-height: 175px;
   height: fit-content;
   padding-block: 1em 2em;
-  max-height: 40svh;
+  max-height: 25svh;
   overflow-y: scroll;
 }
 .form_Link {

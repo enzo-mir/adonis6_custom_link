@@ -15,8 +15,9 @@
   padding: 1em 0em;
   min-width: 0px;
   max-height: 100svh;
-  input {
+  input[type="color"] {
     border-radius: 0px;
+    border: 1px solid #333;
   }
   & > div {
     display: flex;
