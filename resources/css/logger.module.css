@@ -48,6 +48,8 @@
   padding: 0.5em 1em;
   background-color: transparent;
   font-weight: bolder;
+  color: black;
+  border: 1px solid black;
 }
 .content > form > button:focus-visible {
   background-color: hsla(0, 0%, 0%, 0.15);
@@ -69,6 +71,7 @@
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.75);
   background-color: transparent;
+  border-radius: 0px;
   padding: 0.5em;
 }
 .content > form > label > input:invalid:not(:placeholder-shown) {

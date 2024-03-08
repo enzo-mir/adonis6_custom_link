@@ -111,10 +111,6 @@
   gap: 1em;
 }
 
-.cta_container_link {
-  position: fixed;
-  bottom: 10px;
-}
 @media screen and (max-height: 450px) {
   .cta_container_link {
     position: relative;

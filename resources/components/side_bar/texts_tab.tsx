@@ -9,9 +9,8 @@ import { useForm, usePage } from '@inertiajs/react'
 import { DeletIcon } from '../../assets/images/delete_icon'
 import { userDatas } from '../../stores/user_datas.store'
 export const TextTab = () => {
-  const { props: pageProps }: { props: PropsType } = usePage()
-  const [props, setProps] = customProps((state) => [state.props, state.setProps])
-
+  const { props }: { props: PropsType } = usePage()
+  const [propsStore, setPropsStore] = customProps((state) => [state.props, state.setProps])
   const headerFormRef = useRef<ElementRef<'form'>>(null)
   const linkFormRef = useRef<ElementRef<'form'>>(null)
   const user = userDatas((state) => state.user)
@@ -20,15 +19,19 @@ export const TextTab = () => {
     data: dataHeader,
     setData: setDataHeader,
   } = useForm<HeaderProps>({
-    title: props.header_content.title,
-    description: props.header_content.description,
+    title: propsStore.header_content.title,
+    description: propsStore.header_content.description,
   })
 
-  const { post: postLinks, data: dataLinks, setData: setDataLinks } = useForm<LinkType>(props.links)
+  const {
+    post: postLinks,
+    data: dataLinks,
+    setData: setDataLinks,
+  } = useForm<LinkType>(propsStore.links)
 
   useEffect(() => {
-    setProps({
-      ...props,
+    setPropsStore({
+      ...propsStore,
       links: dataLinks as unknown as LinkType,
     })
   }, [dataLinks])
@@ -37,10 +40,10 @@ export const TextTab = () => {
       ...dataHeader,
       [e.target.name]: e.target.value,
     })
-    setProps({
-      ...props,
+    setPropsStore({
+      ...propsStore,
       header_content: {
-        ...props.header_content,
+        ...propsStore.header_content,
         [e.target.name]: e.target.value,
       },
     })
@@ -52,10 +55,10 @@ export const TextTab = () => {
   }
 
   function handleAddLink() {
-    const linksArray: LinkType = props.links
+    const linksArray: LinkType = propsStore.links
     function getHigherId() {
-      if (props.links.length) {
-        const ids = props.links.map((link) => link.id)
+      if (propsStore.links.length) {
+        const ids = propsStore.links.map((link) => link.id)
         return Math.max(...ids) + 1
       }
       return 0
@@ -67,8 +70,8 @@ export const TextTab = () => {
       path: 'https://www.google.com/',
     })
 
-    setProps({
-      ...props,
+    setPropsStore({
+      ...propsStore,
       links: linksArray,
     })
   }
@@ -93,7 +96,7 @@ export const TextTab = () => {
           <input
             type="text"
             name="title"
-            defaultValue={props.header_content.title}
+            defaultValue={propsStore.header_content.title}
             onChange={handleChangeHeader}
             required
           />
@@ -103,7 +106,7 @@ export const TextTab = () => {
           <input
             type="text"
             name="description"
-            defaultValue={props.header_content.description}
+            defaultValue={propsStore.header_content.description}
             onChange={handleChangeHeader}
           />
         </label>
@@ -116,8 +119,8 @@ export const TextTab = () => {
             type="button"
             onClick={(e) => {
               headerFormRef.current.reset()
-              setDataHeader(pageProps.header_content)
-              setProps({ ...props, header_content: pageProps.header_content })
+              setDataHeader(props.header_content)
+              setPropsStore({ ...propsStore, header_content: props.header_content })
             }}
           >
             Reset
@@ -149,10 +152,10 @@ export const TextTab = () => {
           <button
             className={resetBtn.reset_button}
             type="button"
-            onMouseDown={(e) => {
+            onClick={(e) => {
               linkFormRef.current.reset()
-              setProps({ ...props, links: pageProps.links })
-              setDataLinks(pageProps.links)
+              setPropsStore({ ...propsStore, links: props.links })
+              setDataLinks(props.links)
             }}
           >
             Reset

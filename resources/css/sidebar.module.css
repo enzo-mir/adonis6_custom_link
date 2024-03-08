@@ -15,8 +15,13 @@
   padding: 1em 0em;
   min-width: 0px;
   max-height: 100svh;
-
+  input {
+    border-radius: 0px;
+  }
   & > div {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
     overflow: hidden;
     width: 0%;
     transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
